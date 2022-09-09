@@ -1,1 +1,1 @@
-# CollieMollie-Lab
+# Immersive-Lab
