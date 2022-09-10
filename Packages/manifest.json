@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.colliemollie.randomgamedevlibrary": "https://github.com/CollieMollie/Random-GameDev-Library.git",
+    "com.colliemollie.randomlibrary": "https://github.com/CollieMollie/Random-Library.git",
     "com.unity.addressables": "1.19.19",
     "com.unity.collab-proxy": "1.17.1",
     "com.unity.ide.rider": "3.0.15",

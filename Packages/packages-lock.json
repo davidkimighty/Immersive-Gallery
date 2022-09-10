@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.colliemollie.randomgamedevlibrary": {
-      "version": "https://github.com/CollieMollie/Random-GameDev-Library.git",
+    "com.colliemollie.randomlibrary": {
+      "version": "https://github.com/CollieMollie/Random-Library.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "0ffef4e7f099e1d4e46211cf2561200dc0b155fd"
+      "hash": "a46e8f2e7fe80248b172493eb132e2fc80056b2a"
     },
     "com.unity.addressables": {
       "version": "1.19.19",
