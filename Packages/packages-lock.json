@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "a46e8f2e7fe80248b172493eb132e2fc80056b2a"
+      "hash": "69f614b67f6e6e538a5553b5c5a0add6780dacf6"
     },
     "com.unity.addressables": {
       "version": "1.19.19",
