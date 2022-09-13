@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CollieMollie.Editor;
 using CollieMollie.Helper;
 using CollieMollie.Interactable;
 using UnityEngine;
@@ -11,12 +12,13 @@ namespace Museum.Gameboy
     {
         #region Variable field
         [SerializeField] private Transform _showcaseObject = null;
-        [SerializeField] private float _rotationSpeed = 1f;
-        [SerializeField] private float _rotationDamping = 1f;
+        [SerializeField] private float _rotationSpeed = 30f;
+        [SerializeField] private float _rotationDamping = 0.3f;
         [SerializeField] private float _resetWaitTime = 3f;
-        [SerializeField] private float _resetRotationTime = 1f;
+        [SerializeField] private float _resetRotationTime = 0.3f;
+        [ReadOnly]
+        [SerializeField] private bool _isDragging = false;
 
-        private bool _isDragging = false;
         private Quaternion _originalRotation = Quaternion.identity;
         private float _rotationVelocityX = 0f;
         private float _rotationVelocityY = 0f;
@@ -37,10 +39,10 @@ namespace Museum.Gameboy
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (eventData.pointerId != -1) return;
+            if (eventData.pointerId != 2) return;
 
-            var rotDeltaX = eventData.delta.x * _rotationSpeed * Time.deltaTime;
-            var rotDeltaY = eventData.delta.y * _rotationSpeed * Time.deltaTime;
+            float rotDeltaX = eventData.delta.x * _rotationSpeed * Time.deltaTime;
+            float rotDeltaY = eventData.delta.y * _rotationSpeed * Time.deltaTime;
 
             _rotationVelocityX = Mathf.Lerp(_rotationVelocityX, rotDeltaX, Time.deltaTime);
             _rotationVelocityY = Mathf.Lerp(_rotationVelocityY, rotDeltaY, Time.deltaTime);

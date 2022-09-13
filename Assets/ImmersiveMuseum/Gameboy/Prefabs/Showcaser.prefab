@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showcaseObject: {fileID: 0}
-  _rotationSpeed: 10
+  _rotationSpeed: 30
   _rotationDamping: 0.3
   _resetWaitTime: 3
   _resetRotationTime: 0.6
+  _isDragging: 0
