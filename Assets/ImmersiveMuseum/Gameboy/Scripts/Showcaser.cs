@@ -6,7 +6,7 @@ using CollieMollie.Interactable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Museum.Gameboy
+namespace Gallery.Gameboy
 {
     public class Showcaser : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
