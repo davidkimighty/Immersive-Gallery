@@ -63,13 +63,11 @@ namespace Gallery.FlowNavigation
         {
             StartCoroutine(CreateItems(() =>
             {
-                TopId = CenterId + 1 > _createdItems.Length - 1 ? 0 : CenterId + 1;
-                SetItemToAnchor(TopId, _topAnchor);
+                CenterId = LoopId(0, 0);
+                TopId = LoopId(CenterId, 0);
+                BottomId = LoopId(CenterId, 0);
 
-                SetItemToAnchor(_activeItemIds[1], _centerAnchor, true);
-
-                BottomId = CenterId - 1 < 0 ? _createdItems.Length - 1 : CenterId - 1;
-                SetItemToAnchor(BottomId, _bottomAnchor);
+                UpdateItemPositions(null, 1);
             }));
         }
 
@@ -78,9 +76,9 @@ namespace Gallery.FlowNavigation
         {
             bool upButtonClicked = dir > 0;
             if (upButtonClicked)
-                _createdItems[BottomId].MoveToAnchor(_bottomSpawnAnchor, true);
+                _createdItems[BottomId].MoveToAnchor(_bottomSpawnAnchor, false, true);
             else
-                _createdItems[TopId].MoveToAnchor(_topSpawnAnchor, true);
+                _createdItems[TopId].MoveToAnchor(_topSpawnAnchor, false, true);
 
             CenterId = LoopId(CenterId, dir);
 
@@ -98,19 +96,13 @@ namespace Gallery.FlowNavigation
             TopId = LoopId(CenterId, +1);
             _createdItems[TopId].MoveToAnchor(_topAnchor);
 
-            _createdItems[CenterId].MoveToAnchor(_centerAnchor);
+            _createdItems[CenterId].MoveToAnchor(_centerAnchor, true);
             _itemNameText.text = _createdItems[CenterId].Name;
 
             BottomId = LoopId(CenterId, -1);
             _createdItems[BottomId].MoveToAnchor(_bottomAnchor);
-
-            int LoopId(int baseNum, int value)
-            {
-                int nextValue = baseNum + value;
-                return nextValue > ItemsLastIndex ? 0 :
-                    nextValue < 0 ? ItemsLastIndex : nextValue;
-            }
         }
+        
         #endregion
 
         #region Flow Nav Features
@@ -155,17 +147,11 @@ namespace Gallery.FlowNavigation
             }
         }
 
-        private void SetItemToAnchor(int index, Transform anchor, bool isCenter = false)
+        private int LoopId(int baseNum, int value)
         {
-            FlowItem item = _createdItems.First(x => x.Id == index);
-            if (item == null) return;
-
-            item.transform.parent = anchor;
-            item.transform.localPosition = Vector3.zero;
-
-            item.gameObject.SetActive(true);
-            if (isCenter)
-                _itemNameText.text = item.Name;
+            int nextValue = baseNum + value;
+            return nextValue > ItemsLastIndex ? 0 :
+                nextValue < 0 ? ItemsLastIndex : nextValue;
         }
         #endregion
     }
