@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ItemPreset_OldCamera
   m_EditorClassIdentifier: 
   Name: Old Camera
+  Id: 2
   ItemRef:
     m_AssetGUID: 489f397b5cc94475da8c9902e348d118
     m_SubObjectName: 

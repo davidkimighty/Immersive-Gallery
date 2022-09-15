@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ItemPreset_NikeAirZoom
   m_EditorClassIdentifier: 
   Name: Nike Air Zoom
+  Id: 1
   ItemRef:
     m_AssetGUID: 7dfe291aed6794bbd9bebe11bdffaeca
     m_SubObjectName: 

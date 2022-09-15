@@ -10,6 +10,7 @@ namespace Gallery.FlowNavigation
     {
         #region Variable Field
         public string Name = null;
+        public int Id = -1;
         public AssetReference ItemRef = null;
 
         #endregion

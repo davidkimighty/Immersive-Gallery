@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ItemPreset_Skull
   m_EditorClassIdentifier: 
   Name: Skull
+  Id: 4
   ItemRef:
     m_AssetGUID: 58768a688020b44ae8e2c80218417a1d
     m_SubObjectName: 

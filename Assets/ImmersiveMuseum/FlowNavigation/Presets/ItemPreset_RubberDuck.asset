@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ItemPreset_RubberDuck
   m_EditorClassIdentifier: 
   Name: Rubber Duck
+  Id: 3
   ItemRef:
     m_AssetGUID: 021ed2017f40541529dca8ce6d3a63f6
     m_SubObjectName: 
