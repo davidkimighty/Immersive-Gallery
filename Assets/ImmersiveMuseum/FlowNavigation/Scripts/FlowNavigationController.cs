@@ -5,9 +5,9 @@ using System.Linq;
 using TMPro;
 using CollieMollie.UI;
 using CollieMollie.Helper;
+using Gallery.Gameboy;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using static UnityEditor.Progress;
 
 namespace Gallery.FlowNavigation
 {
@@ -23,7 +23,8 @@ namespace Gallery.FlowNavigation
         [SerializeField] private Transform _bottomSpawnAnchor = null;
         [SerializeField] private int[] _activeItemIds = {0, 0, 0};
 
-        [Header("UI")]
+        [SerializeField] private Showcaser _showcaser = null;
+
         [SerializeField] private UIButton _upButton = null;
         [SerializeField] private UIButton _downButton = null;
         [SerializeField] private TextMeshProUGUI _itemNameText = null;
@@ -98,6 +99,8 @@ namespace Gallery.FlowNavigation
 
             _createdItems[CenterId].MoveToAnchor(_centerAnchor, true);
             _itemNameText.text = _createdItems[CenterId].Name;
+            _showcaser.ResetMovement();
+            _showcaser.SetShowcaseObject(_createdItems[CenterId].transform, true);
 
             BottomId = LoopId(CenterId, -1);
             _createdItems[BottomId].MoveToAnchor(_bottomAnchor);

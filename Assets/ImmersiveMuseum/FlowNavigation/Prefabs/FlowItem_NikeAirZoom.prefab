@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8661072461946195475}
   - component: {fileID: 5736904302320386486}
   - component: {fileID: 7528157484421707132}
+  - component: {fileID: 3706612158243024197}
   m_Layer: 0
   m_Name: NikeAirZoom
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3706612158243024197
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320856783216759977}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2422661533217758221, guid: 20224c557470045ba8dd2bd5e181c3fd, type: 3}
 --- !u!1001 &6709434227644038260
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6539345474643946925}
   - component: {fileID: 7885723347449471496}
   - component: {fileID: 5371458256686945986}
+  - component: {fileID: 6592040377947596835}
   m_Layer: 0
   m_Name: RubberDuck
   m_TagString: Untagged
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6592040377947596835
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5875997549063943959}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 973877516759717424, guid: a4ffab957c5714c34842c980812ff9db, type: 3}
 --- !u!1001 &6709434227644038260
 PrefabInstance:
   m_ObjectHideFlags: 0

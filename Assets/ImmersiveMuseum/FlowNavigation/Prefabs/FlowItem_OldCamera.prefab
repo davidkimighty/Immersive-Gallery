@@ -1006,6 +1006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3764706783079135191}
+  - component: {fileID: 2557530766910722122}
   m_Layer: 0
   m_Name: OldCamera
   m_TagString: Untagged
@@ -1051,6 +1052,19 @@ Transform:
   m_Father: {fileID: 1511654964434817467}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 91.58099, y: 12.931, z: 13.059006}
+--- !u!65 &2557530766910722122
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572627465081400685}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.932653, y: 0.5638272, z: 0.621491}
+  m_Center: {x: 0.033673882, y: 1.4028356, z: -1.0236764}
 --- !u!1 &4667165334533601637
 GameObject:
   m_ObjectHideFlags: 0

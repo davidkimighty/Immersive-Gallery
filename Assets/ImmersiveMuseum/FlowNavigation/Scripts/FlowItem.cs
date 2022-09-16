@@ -15,7 +15,6 @@ namespace Gallery.FlowNavigation
         [SerializeField] private AnimationCurve _moveCurve = null;
         [SerializeField] private float _rotateDuration = 0.6f;
         [SerializeField] private AnimationCurve _rotateCurve = null;
-        [SerializeField] private float _floatSpeed = 0.3f;
         [Range(0.1f, 2f)]
         [SerializeField] private float _focusedSize = 1f;
         [Range(0.1f, 1f)]
@@ -52,6 +51,18 @@ namespace Gallery.FlowNavigation
             transform.parent = targetAnchor;
             transform.localPosition = Vector3.zero;
             transform.localScale = Vector3.one * _unfocusedSize;
+        }
+        #endregion
+
+        private void Update()
+        {
+            Floating();
+        }
+
+        #region Float
+        private void Floating()
+        {
+
         }
         #endregion
     }

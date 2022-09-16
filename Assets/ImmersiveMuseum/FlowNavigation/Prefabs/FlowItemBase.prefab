@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9700c245336bf4042b277b7b7ec4c4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scaleDuration: 0.6
+  _scaleDuration: 0.8
   _scaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -71,7 +71,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _moveDuration: 0.6
+  _moveDuration: 1
   _moveCurve:
     serializedVersion: 2
     m_Curve:
@@ -85,6 +85,15 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.509636
+      value: 0.9726949
+      inSlope: 1.2319398
+      outSlope: 1.2319398
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 0
@@ -96,7 +105,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _rotateDuration: 0.6
+  _rotateDuration: 1
   _rotateCurve:
     serializedVersion: 2
     m_Curve:
@@ -110,6 +119,15 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.3715378
+      value: 0.7834631
+      inSlope: 2.4073734
+      outSlope: 2.4073734
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.02483515
+    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 0
@@ -121,7 +139,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _floatSpeed: 0.3
+  _floatSpeed: 6.01
+  _floatAmplitude: 8.05
   _focusedSize: 1.1
   _unfocusedSize: 0.8
   Name: 
