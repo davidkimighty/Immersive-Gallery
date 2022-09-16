@@ -6,7 +6,7 @@ using CollieMollie.Interactable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Museum.Gameboy
+namespace Gallery.Gameboy
 {
     public class Showcaser : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
@@ -28,9 +28,26 @@ namespace Museum.Gameboy
 
         private void Start()
         {
-            _showcaseObject.parent = transform;
-            _originalRotation = _showcaseObject.rotation;
+            if (_showcaseObject == null) return;
+            _originalRotation = _showcaseObject.localRotation;
         }
+
+        #region Public Functions
+        public void SetShowcaseObject(Transform showcaseObject, bool resetRatation = false)
+        {
+            _showcaseObject = showcaseObject;
+            _originalRotation = resetRatation ? Quaternion.identity : _showcaseObject.localRotation;
+        }
+
+        public void ResetMovement()
+        {
+            if (_resetAction != null)
+                StopCoroutine(_resetAction);
+            _currentResetWaitTime = 0f;
+            _rotationVelocityX = 0f;
+            _rotationVelocityY = 0f;
+        }
+        #endregion
 
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -39,7 +56,7 @@ namespace Museum.Gameboy
 
         public void OnDrag(PointerEventData eventData)
         {
-            if (eventData.pointerId != 2) return;
+            //if (eventData.pointerId != 2) return;
 
             float rotDeltaX = eventData.delta.x * _rotationSpeed * Time.deltaTime;
             float rotDeltaY = eventData.delta.y * _rotationSpeed * Time.deltaTime;
@@ -58,6 +75,8 @@ namespace Museum.Gameboy
 
         private void Update()
         {
+            if (_showcaseObject == null) return;
+
             VelocityXMovement();
             VelocityYMovement();
             BackToOriginalRotation();

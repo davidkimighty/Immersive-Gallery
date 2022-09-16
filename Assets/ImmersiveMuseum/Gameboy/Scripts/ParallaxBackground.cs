@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Museum.Gameboy
+namespace Gallery.Gameboy
 {
     public class ParallaxBackground : MonoBehaviour
     {
