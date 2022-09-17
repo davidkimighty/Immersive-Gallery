@@ -41,6 +41,14 @@
 
 ![GameboyButtonGIF](https://user-images.githubusercontent.com/32338791/190570378-71cc4e2f-90cb-4d67-983e-82964195cf1d.gif)
 
+## Development Progress
+
+- [x] Button movement & sound.
+- [x] Object rotate interaction.
+- [x] Object reset rotation after certain time.
+- [ ] Slightly tilt the camera towards the dragging direction.
+- [ ] Create a mini game.
+
 ## Reference
 
 Gameboy model by <a href="https://skfb.ly/6YNov">Georg Klein.
@@ -53,6 +61,16 @@ Gameboy model by <a href="https://skfb.ly/6YNov">Georg Klein.
 # FLOW NAVIGATION
 
 ![FlowNavigationGIF](https://user-images.githubusercontent.com/32338791/190569224-09d73faa-401c-4e6e-923f-835d7e00db72.gif)
+
+## Development Progress
+
+- [x] Navigate through objects with UI buttons.
+- [x] Add floating feel to the object whenever it moves to the next point.
+- [x] Enable rotate interaction on the center object.
+- [ ] Add UI that indicates the center object is rotatable. Visible when it's hoverred & slightly scale up the object.
+- [ ] Fade out everything except the center object when rotating. Give a light effect or add a pattern to the background to mainly focus on the the rotating object.
+- [ ] Add Select feature. Change the color of the background to the object color when selected. Everything else fades out.
+- [ ] Add particle effect to give volume to the space.
 
 ## Reference
 
