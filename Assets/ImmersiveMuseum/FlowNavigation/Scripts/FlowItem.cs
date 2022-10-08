@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using CollieMollie.Core;
 using CollieMollie.Helper;
+using CollieMollie.Interactable;
 using CollieMollie.System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Gallery.FlowNavigation
 {
-    public class FlowItem : MonoBehaviour
+    public class FlowItem : BasePointerInteractable
     {
         #region Variable Field
         [SerializeField] private float _scaleDuration = 0.6f;
@@ -24,6 +27,7 @@ namespace Gallery.FlowNavigation
         public int Id = -1;
 
         private Operation _moveOperation = new Operation();
+        private bool _interactable = true;
         #endregion
 
         #region Public Functions
@@ -54,16 +58,14 @@ namespace Gallery.FlowNavigation
         }
         #endregion
 
-        private void Update()
+        protected override void InvokeEnterAction(PointerEventData eventData = null)
         {
-            Floating();
+            base.InvokeEnterAction(eventData);
         }
 
-        #region Float
-        private void Floating()
+        protected override void InvokeExitAction(PointerEventData eventData = null)
         {
-
+            base.InvokeExitAction(eventData);
         }
-        #endregion
     }
 }

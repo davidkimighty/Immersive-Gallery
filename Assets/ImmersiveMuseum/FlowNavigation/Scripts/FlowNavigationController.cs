@@ -8,6 +8,7 @@ using CollieMollie.Helper;
 using Gallery.Gameboy;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using CollieMollie.Core;
 
 namespace Gallery.FlowNavigation
 {
@@ -73,7 +74,7 @@ namespace Gallery.FlowNavigation
         }
 
         #region Subscribers
-        public void UpdateItemPositions(UIEventArgs args, int dir)
+        public void UpdateItemPositions(InteractableEventArgs args, int dir)
         {
             bool upButtonClicked = dir > 0;
             if (upButtonClicked)

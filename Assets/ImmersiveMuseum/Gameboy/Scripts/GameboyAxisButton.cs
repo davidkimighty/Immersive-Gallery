@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CollieMollie.Audio;
+using CollieMollie.Core;
 using CollieMollie.Helper;
 using CollieMollie.Interactable;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.EventSystems;
 
 namespace Gallery.Gameboy
 {
-    public class GameboyAxisButton : BaseInteractable
+    public class GameboyAxisButton : BasePointerInteractable
     {
         #region Variable Field
         public event Action OnPressed = null;
@@ -26,6 +27,8 @@ namespace Gallery.Gameboy
 
         private Quaternion _defaultRotation = Quaternion.identity;
         private IEnumerator _currentButtonAction = null;
+
+        private bool _interactable = true;
         #endregion
 
         private void Start()
