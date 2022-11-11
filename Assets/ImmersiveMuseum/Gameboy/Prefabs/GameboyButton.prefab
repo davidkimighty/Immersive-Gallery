@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7208372189578052599}
   - component: {fileID: 5651341907895548519}
   - component: {fileID: 1622003579812329719}
+  - component: {fileID: 6243427940811782248}
   m_Layer: 0
   m_Name: GameboyButton
   m_TagString: Untagged
@@ -110,12 +111,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 824d364ff3095408eb375aca93565132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 6243427940811782248}
+  _travelDistance: 0.02
+  _travelDuration: 0.1
+  _audioEventChannel: {fileID: 11400000, guid: 658c01b23775d43cd8aec283dd0cb916, type: 2}
+  _audioPreset: {fileID: 11400000, guid: 6749566d393864acaa50d66ddfc18542, type: 2}
+--- !u!114 &6243427940811782248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203383896558817651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc51e4c99d49047ce81e53d935cd999d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visible: 1
   _interactable: 1
   _hovering: 0
   _pressed: 0
   _selected: 0
   _dragging: 0
-  _travelDistance: 0.02
-  _travelDuration: 0.1
-  _audioEventChannel: {fileID: 11400000, guid: 658c01b23775d43cd8aec283dd0cb916, type: 2}
-  _audioPreset: {fileID: 11400000, guid: 6749566d393864acaa50d66ddfc18542, type: 2}
+  _buttonObject: {fileID: 1203383896558817651}
+  _type: 0
+  _colorFeature: {fileID: 0}
+  _audioFeature: {fileID: 0}
+  _spriteFeature: {fileID: 0}
+  _animationFeature: {fileID: 0}
+  _dragFeature: {fileID: 0}

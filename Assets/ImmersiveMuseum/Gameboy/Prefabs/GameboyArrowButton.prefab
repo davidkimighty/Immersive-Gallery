@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2000539088091517234}
   - component: {fileID: 7421696509930301272}
   - component: {fileID: 7244447105714142075}
+  - component: {fileID: 7212603036717772353}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -58,17 +59,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea11c5e6c4c5a465999149fc51c8a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactable: 1
-  _hovering: 0
-  _pressed: 0
-  _selected: 0
-  _dragging: 0
+  _button: {fileID: 7212603036717772353}
   _axisButton: {fileID: 7796411173473970751}
   _dir: {x: -1, y: 0}
   _travelDistance: 10
   _travelDuration: 0.1
   _audioEventChannel: {fileID: 11400000, guid: 658c01b23775d43cd8aec283dd0cb916, type: 2}
   _audioPreset: {fileID: 11400000, guid: 6749566d393864acaa50d66ddfc18542, type: 2}
+--- !u!114 &7212603036717772353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503561794346267700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc51e4c99d49047ce81e53d935cd999d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visible: 1
+  _interactable: 1
+  _hovering: 0
+  _pressed: 0
+  _selected: 0
+  _dragging: 0
+  _buttonObject: {fileID: 503561794346267700}
+  _type: 0
+  _colorFeature: {fileID: 0}
+  _audioFeature: {fileID: 0}
+  _spriteFeature: {fileID: 0}
+  _animationFeature: {fileID: 0}
+  _dragFeature: {fileID: 0}
 --- !u!1 &3160261402503528196
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,6 +102,7 @@ GameObject:
   - component: {fileID: 6321624427203707463}
   - component: {fileID: 2723721865650860217}
   - component: {fileID: 722985680624996690}
+  - component: {fileID: 7492520242997718665}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -127,17 +150,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea11c5e6c4c5a465999149fc51c8a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactable: 1
-  _hovering: 0
-  _pressed: 0
-  _selected: 0
-  _dragging: 0
+  _button: {fileID: 7492520242997718665}
   _axisButton: {fileID: 7796411173473970751}
   _dir: {x: 1, y: 0}
   _travelDistance: 10
   _travelDuration: 0.1
   _audioEventChannel: {fileID: 11400000, guid: 658c01b23775d43cd8aec283dd0cb916, type: 2}
   _audioPreset: {fileID: 11400000, guid: 6749566d393864acaa50d66ddfc18542, type: 2}
+--- !u!114 &7492520242997718665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3160261402503528196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc51e4c99d49047ce81e53d935cd999d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visible: 1
+  _interactable: 1
+  _hovering: 0
+  _pressed: 0
+  _selected: 0
+  _dragging: 0
+  _buttonObject: {fileID: 3160261402503528196}
+  _type: 0
+  _colorFeature: {fileID: 0}
+  _audioFeature: {fileID: 0}
+  _spriteFeature: {fileID: 0}
+  _animationFeature: {fileID: 0}
+  _dragFeature: {fileID: 0}
 --- !u!1 &5310078729714563618
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +280,7 @@ GameObject:
   - component: {fileID: 617281511977783267}
   - component: {fileID: 135206487096807595}
   - component: {fileID: 3532554420184558204}
+  - component: {fileID: 7466598891410762017}
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
@@ -283,17 +328,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea11c5e6c4c5a465999149fc51c8a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactable: 1
-  _hovering: 0
-  _pressed: 0
-  _selected: 0
-  _dragging: 0
+  _button: {fileID: 7466598891410762017}
   _axisButton: {fileID: 7796411173473970751}
   _dir: {x: 0, y: -1}
   _travelDistance: 10
   _travelDuration: 0.1
   _audioEventChannel: {fileID: 11400000, guid: 658c01b23775d43cd8aec283dd0cb916, type: 2}
   _audioPreset: {fileID: 11400000, guid: 6749566d393864acaa50d66ddfc18542, type: 2}
+--- !u!114 &7466598891410762017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7938163650286154027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc51e4c99d49047ce81e53d935cd999d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visible: 1
+  _interactable: 1
+  _hovering: 0
+  _pressed: 0
+  _selected: 0
+  _dragging: 0
+  _buttonObject: {fileID: 7938163650286154027}
+  _type: 0
+  _colorFeature: {fileID: 0}
+  _audioFeature: {fileID: 0}
+  _spriteFeature: {fileID: 0}
+  _animationFeature: {fileID: 0}
+  _dragFeature: {fileID: 0}
 --- !u!1 &8184646751978113003
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +371,7 @@ GameObject:
   - component: {fileID: 7881402549559977308}
   - component: {fileID: 6813430185824433154}
   - component: {fileID: 3983138307617865896}
+  - component: {fileID: 2716087628697683121}
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
@@ -352,14 +419,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea11c5e6c4c5a465999149fc51c8a4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactable: 1
-  _hovering: 0
-  _pressed: 0
-  _selected: 0
-  _dragging: 0
+  _button: {fileID: 2716087628697683121}
   _axisButton: {fileID: 7796411173473970751}
   _dir: {x: 0, y: 1}
   _travelDistance: 10
   _travelDuration: 0.1
   _audioEventChannel: {fileID: 11400000, guid: 658c01b23775d43cd8aec283dd0cb916, type: 2}
   _audioPreset: {fileID: 11400000, guid: 6749566d393864acaa50d66ddfc18542, type: 2}
+--- !u!114 &2716087628697683121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8184646751978113003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc51e4c99d49047ce81e53d935cd999d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visible: 1
+  _interactable: 1
+  _hovering: 0
+  _pressed: 0
+  _selected: 0
+  _dragging: 0
+  _buttonObject: {fileID: 8184646751978113003}
+  _type: 0
+  _colorFeature: {fileID: 0}
+  _audioFeature: {fileID: 0}
+  _spriteFeature: {fileID: 0}
+  _animationFeature: {fileID: 0}
+  _dragFeature: {fileID: 0}

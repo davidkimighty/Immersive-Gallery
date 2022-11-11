@@ -5,17 +5,19 @@ using CollieMollie.Audio;
 using CollieMollie.Core;
 using CollieMollie.Helper;
 using CollieMollie.Interactable;
+using CollieMollie.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Gallery.Gameboy
 {
-    public class GameboyButton : BasePointerInteractable
+    public class GameboyButton : MonoBehaviour
     {
         #region Variable Field
         public event Action OnPressed = null;
 
         [Header("Gameboy Button")]
+        [SerializeField] private UIButton _button = null;
         [SerializeField] private float _travelDistance = 0.3f;
         [SerializeField] private float _travelDuration = 0.6f;
 
@@ -25,35 +27,28 @@ namespace Gallery.Gameboy
 
         private Vector3 _defaultPosition = Vector3.zero;
         private IEnumerator _currentButtonAction = null;
-
-        private bool _interactable = true;
         #endregion
+
+        private void Awake()
+        {
+            _button.OnDefault += (eventArgs) => InvokeDefaultAction();
+            _button.OnPressed += (eventArgs) => InvokeDownAction();
+        }
 
         private void Start()
         {
             _defaultPosition = transform.localPosition;
         }
 
-        #region Interaction Publishers
-        protected override void InvokeExitAction(PointerEventData eventData = null)
+        #region Subscribers
+        private void InvokeDefaultAction()
         {
-            if (!_interactable) return;
-
             DefaultButton();
         }
 
-        protected override void InvokeDownAction(PointerEventData eventData = null)
+        private void InvokeDownAction()
         {
-            if (!_interactable) return;
-
             PressedButton();
-        }
-
-        protected override void InvokeUpAction(PointerEventData eventData = null)
-        {
-            if (!_interactable) return;
-
-            DefaultButton();
         }
 
         #endregion

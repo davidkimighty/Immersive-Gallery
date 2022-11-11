@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using CollieMollie.Editor;
 using CollieMollie.Helper;
 using CollieMollie.Interactable;
 using UnityEngine;
@@ -16,7 +15,6 @@ namespace Gallery.Gameboy
         [SerializeField] private float _rotationDamping = 0.3f;
         [SerializeField] private float _resetWaitTime = 3f;
         [SerializeField] private float _resetRotationTime = 0.3f;
-        [ReadOnly]
         [SerializeField] private bool _isDragging = false;
 
         private Quaternion _originalRotation = Quaternion.identity;

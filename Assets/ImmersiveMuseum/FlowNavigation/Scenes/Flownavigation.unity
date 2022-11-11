@@ -174,14 +174,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc51e4c99d49047ce81e53d935cd999d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 0
+  _colorFeature: {fileID: 0}
+  _audioFeature: {fileID: 0}
   _interactable: 1
   _hovering: 0
   _pressed: 0
   _selected: 0
   _dragging: 0
-  _type: 0
-  _colorFeature: {fileID: 0}
-  _audioFeature: {fileID: 0}
 --- !u!114 &56608202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &242413905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1919,14 +1919,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc51e4c99d49047ce81e53d935cd999d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 0
+  _colorFeature: {fileID: 0}
+  _audioFeature: {fileID: 0}
   _interactable: 1
   _hovering: 0
   _pressed: 0
   _selected: 0
   _dragging: 0
-  _type: 0
-  _colorFeature: {fileID: 0}
-  _audioFeature: {fileID: 0}
 --- !u!114 &1641588545
 MonoBehaviour:
   m_ObjectHideFlags: 0
