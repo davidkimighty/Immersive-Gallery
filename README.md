@@ -21,15 +21,9 @@
   <ol>
     <li>
       <a href="#game-boy">Game Boy</a>
-      <ul>
-        <li>Content</li>
-      </ul>
     </li>
     <li>
       <a href="#flow-navigation">Flow Navigation</a>
-      <ul>
-        <li>Content</li>
-      </ul>
     </li>
   </ol>
 </details>
