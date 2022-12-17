@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CollieMollie.Audio;
-using CollieMollie.Core;
 using CollieMollie.Helper;
-using CollieMollie.Interactable;
 using CollieMollie.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,7 +25,7 @@ namespace Gallery.Gameboy
         [SerializeField] private AudioPreset _audioPreset = null;
 
         private Vector3 _defaultPosition = Vector3.zero;
-        private IEnumerator _currentButtonAction = null;
+        private Task _buttonTask = null;
         #endregion
 
         private void Awake()
@@ -56,31 +55,23 @@ namespace Gallery.Gameboy
         #region Button Behaviors
         private void DefaultButton()
         {
-            if (_currentButtonAction != null)
-                StopCoroutine(_currentButtonAction);
-
-            _currentButtonAction = PushButton(_defaultPosition);
-            StartCoroutine(_currentButtonAction);
+            _buttonTask = PushButtonAsync(_defaultPosition);
         }
 
         private void PressedButton()
         {
-            if (_currentButtonAction != null)
-                StopCoroutine(_currentButtonAction);
-
             Vector3 pressedPosition = _defaultPosition;
             pressedPosition.x += _travelDistance;
-            _currentButtonAction = PushButton(pressedPosition, () =>
+            _buttonTask = PushButtonAsync(pressedPosition, () =>
             {
                 _audioEventChannel.RaisePlayAudioEvent(_audioPreset);
                 OnPressed?.Invoke();
             });
-            StartCoroutine(_currentButtonAction);
         }
 
-        IEnumerator PushButton(Vector3 targetPosition, Action done = null)
+        private async Task PushButtonAsync(Vector3 targetPosition, Action done = null)
         {
-            yield return transform.LerpLocalPosition(targetPosition, _travelDuration);
+            await transform.LerpLocalPositionAsync(targetPosition, _travelDuration);
             done?.Invoke();
         }
         #endregion

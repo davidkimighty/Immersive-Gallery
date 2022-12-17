@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CollieMollie.Helper;
-using CollieMollie.Interactable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,8 +20,8 @@ namespace Gallery.Gameboy
         private Quaternion _originalRotation = Quaternion.identity;
         private float _rotationVelocityX = 0f;
         private float _rotationVelocityY = 0f;
-        private IEnumerator _resetAction = null;
         private float _currentResetWaitTime = 0f;
+        private Task _resetTask = null;
         #endregion
 
         private void Start()
@@ -39,8 +39,7 @@ namespace Gallery.Gameboy
 
         public void ResetMovement()
         {
-            if (_resetAction != null)
-                StopCoroutine(_resetAction);
+            _resetTask = null;
             _currentResetWaitTime = 0f;
             _rotationVelocityX = 0f;
             _rotationVelocityY = 0f;
@@ -112,21 +111,20 @@ namespace Gallery.Gameboy
             if (CanReset())
             {
                 _currentResetWaitTime += Time.deltaTime;
-                if (_currentResetWaitTime < _resetWaitTime || _resetAction != null) return;
+                if (_currentResetWaitTime < _resetWaitTime || _resetTask != null) return;
 
-                _resetAction = ResetRotation();
-                StartCoroutine(_resetAction);
+                _resetTask = ResetRotationAsync();
             }
             else
             {
                 _currentResetWaitTime = 0f;
             }
 
-            IEnumerator ResetRotation()
+            async Task ResetRotationAsync()
             {
-                yield return _showcaseObject.LerpLocalRotation(_originalRotation, _resetRotationTime);
+                await _showcaseObject.LerpLocalRotationAsync(_originalRotation, _resetRotationTime);
                 _currentResetWaitTime = _rotationVelocityX = _rotationVelocityY = 0f;
-                _resetAction = null;
+                _resetTask = null;
             }
 
             bool CanReset()

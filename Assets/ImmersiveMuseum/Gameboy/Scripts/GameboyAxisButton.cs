@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CollieMollie.Audio;
-using CollieMollie.Core;
 using CollieMollie.Helper;
-using CollieMollie.Interactable;
 using CollieMollie.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,7 +27,7 @@ namespace Gallery.Gameboy
         [SerializeField] private AudioPreset _audioPreset = null;
 
         private Quaternion _defaultRotation = Quaternion.identity;
-        private IEnumerator _currentButtonAction = null;
+        private Task _buttonTask = null;
         #endregion
 
         private void Awake()
@@ -58,18 +57,11 @@ namespace Gallery.Gameboy
         #region Button Behaviors
         private void DefaultButton()
         {
-            if (_currentButtonAction != null)
-                StopCoroutine(_currentButtonAction);
-
-            _currentButtonAction = PushButton(_defaultRotation);
-            StartCoroutine(_currentButtonAction);
+            _buttonTask = PushButtonAsync(_defaultRotation);
         }
 
         private void PressedButton()
         {
-            if (_currentButtonAction != null)
-                StopCoroutine(_currentButtonAction);
-
             Quaternion pressedRotation = _dir switch
             {
                 Vector2 dir when dir.y > 0 => _defaultRotation * Quaternion.Euler(-Vector3.forward * _travelDistance),
@@ -79,17 +71,16 @@ namespace Gallery.Gameboy
                 _ => Quaternion.identity
             };
 
-            _currentButtonAction = PushButton(pressedRotation, () =>
+            _buttonTask = PushButtonAsync(pressedRotation, () =>
             {
                 _audioEventChannel.RaisePlayAudioEvent(_audioPreset);
                 OnPressed?.Invoke();
             });
-            StartCoroutine(_currentButtonAction);
         }
 
-        IEnumerator PushButton(Quaternion targetRotation, Action done = null)
+        private async Task PushButtonAsync(Quaternion targetRotation, Action done = null)
         {
-            yield return _axisButton.LerpLocalRotation(targetRotation, _travelDuration);
+            await _axisButton.LerpLocalRotationAsync(targetRotation, _travelDuration);
             done?.Invoke();
         }
         #endregion

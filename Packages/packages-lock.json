@@ -5,9 +5,10 @@
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "com.unity.addressables": "1.19.19"
+        "com.unity.addressables": "1.19.19",
+        "com.unity.inputsystem": "1.4.4"
       },
-      "hash": "0a6a0163a8cf02b2337e40a21841d6626b301c72"
+      "hash": "bd2a67b094daec7525bb91b63b0d800e94c7cb88"
     },
     "com.unity.addressables": {
       "version": "1.19.19",
@@ -74,8 +75,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.4.3",
-      "depth": 0,
+      "version": "1.4.4",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"

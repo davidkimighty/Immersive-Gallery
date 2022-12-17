@@ -74,13 +74,13 @@ namespace Gallery.FlowNavigation
         }
 
         #region Subscribers
-        public void UpdateItemPositions(InteractableEventArgs args, int dir)
+        public void UpdateItemPositions(UIEventArgs args, int dir)
         {
             bool upButtonClicked = dir > 0;
             if (upButtonClicked)
-                _createdItems[BottomId].MoveToAnchor(_bottomSpawnAnchor, false, true);
+                _createdItems[BottomId].MoveToAnchorAsync(_bottomSpawnAnchor, false, true);
             else
-                _createdItems[TopId].MoveToAnchor(_topSpawnAnchor, false, true);
+                _createdItems[TopId].MoveToAnchorAsync(_topSpawnAnchor, false, true);
 
             CenterId = LoopId(CenterId, dir);
 
@@ -96,15 +96,15 @@ namespace Gallery.FlowNavigation
             }
 
             TopId = LoopId(CenterId, +1);
-            _createdItems[TopId].MoveToAnchor(_topAnchor);
+            _createdItems[TopId].MoveToAnchorAsync(_topAnchor);
 
-            _createdItems[CenterId].MoveToAnchor(_centerAnchor, true);
+            _createdItems[CenterId].MoveToAnchorAsync(_centerAnchor, true);
             _itemNameText.text = _createdItems[CenterId].Name;
             _showcaser.ResetMovement();
             _showcaser.SetShowcaseObject(_createdItems[CenterId].transform, true);
 
             BottomId = LoopId(CenterId, -1);
-            _createdItems[BottomId].MoveToAnchor(_bottomAnchor);
+            _createdItems[BottomId].MoveToAnchorAsync(_bottomAnchor);
         }
         
         #endregion
