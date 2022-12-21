@@ -8,7 +8,13 @@
         "com.unity.addressables": "1.19.19",
         "com.unity.inputsystem": "1.4.4"
       },
-      "hash": "bd2a67b094daec7525bb91b63b0d800e94c7cb88"
+      "hash": "5405968752e4d9600ae38b54835380e026604070"
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.addressables": {
       "version": "1.19.19",
