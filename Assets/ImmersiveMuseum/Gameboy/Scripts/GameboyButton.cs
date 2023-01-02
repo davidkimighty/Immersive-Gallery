@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CollieMollie.Audio;
 using CollieMollie.Helper;
@@ -26,6 +27,7 @@ namespace Gallery.Gameboy
 
         private Vector3 _defaultPosition = Vector3.zero;
         private Task _buttonTask = null;
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
         #endregion
 
         private void Awake()
@@ -55,23 +57,30 @@ namespace Gallery.Gameboy
         #region Button Behaviors
         private void DefaultButton()
         {
-            _buttonTask = PushButtonAsync(_defaultPosition);
+            _tokenSource.Cancel();
+            _tokenSource = new CancellationTokenSource();
+
+            _buttonTask = PushButtonAsync(_defaultPosition, _tokenSource.Token);
         }
 
         private void PressedButton()
         {
             Vector3 pressedPosition = _defaultPosition;
             pressedPosition.x += _travelDistance;
-            _buttonTask = PushButtonAsync(pressedPosition, () =>
+
+            _tokenSource.Cancel();
+            _tokenSource = new CancellationTokenSource();
+
+            _buttonTask = PushButtonAsync(pressedPosition, _tokenSource.Token, () =>
             {
                 _audioEventChannel.RaisePlayAudioEvent(_audioPreset);
                 OnPressed?.Invoke();
             });
         }
 
-        private async Task PushButtonAsync(Vector3 targetPosition, Action done = null)
+        private async Task PushButtonAsync(Vector3 targetPosition, CancellationToken token, Action done = null)
         {
-            await transform.LerpLocalPositionAsync(targetPosition, _travelDuration);
+            await transform.LerpLocalPositionAsync(targetPosition, _travelDuration, token);
             done?.Invoke();
         }
         #endregion

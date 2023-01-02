@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CollieMollie.Helper;
 using UnityEngine;
@@ -21,7 +22,9 @@ namespace Gallery.Gameboy
         private float _rotationVelocityX = 0f;
         private float _rotationVelocityY = 0f;
         private float _currentResetWaitTime = 0f;
+
         private Task _resetTask = null;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
         #endregion
 
         private void Start()
@@ -122,7 +125,10 @@ namespace Gallery.Gameboy
 
             async Task ResetRotationAsync()
             {
-                await _showcaseObject.LerpLocalRotationAsync(_originalRotation, _resetRotationTime);
+                _cts.Cancel();
+                _cts = new CancellationTokenSource();
+
+                await _showcaseObject.LerpLocalRotationAsync(_originalRotation, _resetRotationTime, _cts.Token);
                 _currentResetWaitTime = _rotationVelocityX = _rotationVelocityY = 0f;
                 _resetTask = null;
             }

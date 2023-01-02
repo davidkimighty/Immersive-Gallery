@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CollieMollie.Audio;
 using CollieMollie.Helper;
@@ -28,6 +29,7 @@ namespace Gallery.Gameboy
 
         private Quaternion _defaultRotation = Quaternion.identity;
         private Task _buttonTask = null;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
         #endregion
 
         private void Awake()
@@ -57,7 +59,10 @@ namespace Gallery.Gameboy
         #region Button Behaviors
         private void DefaultButton()
         {
-            _buttonTask = PushButtonAsync(_defaultRotation);
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
+
+            _buttonTask = PushButtonAsync(_defaultRotation, _cts.Token);
         }
 
         private void PressedButton()
@@ -71,16 +76,19 @@ namespace Gallery.Gameboy
                 _ => Quaternion.identity
             };
 
-            _buttonTask = PushButtonAsync(pressedRotation, () =>
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
+
+            _buttonTask = PushButtonAsync(pressedRotation, _cts.Token, () =>
             {
                 _audioEventChannel.RaisePlayAudioEvent(_audioPreset);
                 OnPressed?.Invoke();
             });
         }
 
-        private async Task PushButtonAsync(Quaternion targetRotation, Action done = null)
+        private async Task PushButtonAsync(Quaternion targetRotation, CancellationToken token, Action done = null)
         {
-            await _axisButton.LerpLocalRotationAsync(targetRotation, _travelDuration);
+            await _axisButton.LerpLocalRotationAsync(targetRotation, _travelDuration, token);
             done?.Invoke();
         }
         #endregion

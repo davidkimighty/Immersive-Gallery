@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using CollieMollie.Core;
 using CollieMollie.Helper;
@@ -35,6 +36,7 @@ namespace Gallery.FlowNavigation
 
         private List<Task> _moveTask = null;
         private Task _scaleTask = null;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
         #endregion
 
         #region Public Functions
@@ -43,11 +45,14 @@ namespace Gallery.FlowNavigation
             gameObject.SetActive(true);
             transform.parent = targetAnchor; _isCenter = isCenter;
 
-            _moveTask = new List<Task>();
-            _moveTask.Add(transform.LerpLocalPositionAsync(Vector3.zero, _moveDuration, _moveCurve));
-            _moveTask.Add(transform.LerpLocalRotationAsync(Quaternion.identity, _rotateDuration, _rotateCurve));
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
 
-            _scaleTask = transform.LerpScaleAsync(isCenter ? Vector3.one * _focusedSize : Vector3.one * _unfocusedSize, _scaleDuration, _scaleCurve);
+            _moveTask = new List<Task>();
+            _moveTask.Add(transform.LerpLocalPositionAsync(Vector3.zero, _moveDuration, _cts.Token, _moveCurve));
+            _moveTask.Add(transform.LerpLocalRotationAsync(Quaternion.identity, _rotateDuration, _cts.Token, _rotateCurve));
+
+            _scaleTask = transform.LerpScaleAsync(isCenter ? Vector3.one * _focusedSize : Vector3.one * _unfocusedSize, _scaleDuration, _cts.Token, _scaleCurve);
 
             await Task.WhenAll(_moveTask);
 
@@ -70,7 +75,7 @@ namespace Gallery.FlowNavigation
         {
             if (!_isCenter) return;
 
-            _scaleTask = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _hoveredCurve);
+            _scaleTask = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _cts.Token, _hoveredCurve);
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -81,7 +86,7 @@ namespace Gallery.FlowNavigation
 
             if (_isCenter)
             {
-                _scaleTask = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _hoveredCurve);
+                _scaleTask = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _cts.Token, _hoveredCurve);
             }
         }
     }

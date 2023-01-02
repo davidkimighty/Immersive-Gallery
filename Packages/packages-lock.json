@@ -6,9 +6,17 @@
       "source": "git",
       "dependencies": {
         "com.unity.addressables": "1.19.19",
-        "com.unity.inputsystem": "1.4.4"
+        "com.unity.inputsystem": "1.4.4",
+        "com.colliemollie.shadermagic": "0.1.1"
       },
-      "hash": "5405968752e4d9600ae38b54835380e026604070"
+      "hash": "d223d2a358f873b863f0c2857a0fd5a22e8fde3f"
+    },
+    "com.colliemollie.shadermagic": {
+      "version": "https://github.com/hyunwookimbob/ShaderMagic.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b0f6fada35e14171bb15c4a23ed282c7f8b83f41"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

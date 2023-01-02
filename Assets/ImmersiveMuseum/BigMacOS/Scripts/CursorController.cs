@@ -72,8 +72,8 @@ namespace Gallery.BigMacOS
                 _cts.Cancel();
                 _cts = new CancellationTokenSource();
                 List<Task> fadeTasks = new List<Task>();
-                fadeTasks.Add(Fade(_cursor, 1, _awakeDuration));
-                fadeTasks.Add(Fade(_interactiveCursor, 1, _awakeDuration));
+                fadeTasks.Add(Fade(_cursor, 1, _awakeDuration, _cts.Token));
+                fadeTasks.Add(Fade(_interactiveCursor, 1, _awakeDuration, _cts.Token));
             }
             else
             {
@@ -85,16 +85,16 @@ namespace Gallery.BigMacOS
                     _cts.Cancel();
                     _cts = new CancellationTokenSource();
                     List<Task> fadeTasks = new List<Task>();
-                    fadeTasks.Add(Fade(_cursor, 0, _sleepDuration));
-                    fadeTasks.Add(Fade(_interactiveCursor, 0, _sleepDuration));
+                    fadeTasks.Add(Fade(_cursor, 0, _sleepDuration, _cts.Token));
+                    fadeTasks.Add(Fade(_interactiveCursor, 0, _sleepDuration, _cts.Token));
                 }
             }
 
-            async Task Fade(Image cursor, float targetValue, float duration)
+            async Task Fade(Image cursor, float targetValue, float duration, CancellationToken token)
             {
                 Color targetColor = cursor.color;
                 targetColor.a = targetValue;
-                await cursor.ChangeColorGraduallyAsync(targetColor, duration, null, _cts);
+                await cursor.ChangeColorGraduallyAsync(targetColor, duration, token);
             }
         }
         #endregion
