@@ -15,8 +15,38 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_Data:
     m_SerializedData: []
-  m_GUID: 2fc11dcf1221c4c51af2ac68e3b7c880
-  m_SerializeEntries: []
+  m_GUID: 03a06fdacd83b44948c47b80714acd75
+  m_SerializeEntries:
+  - m_GUID: 58768a688020b44ae8e2c80218417a1d
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowItem_Cube.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 023ff65aadb3e43af97a89841967235c
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowItem_Cube 1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 27fc9e283b2f94922aeb7ef2613e038d
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowItem_Cube 2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae1e35d73f4f44ed5bbdcfd7c0c56e5a
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowItem_Cube 3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc081689d7a1b450eac55fbedbd97c19
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowItem_Cube 4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 214021835befb4d4f886e764b568d61c
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowItem_Cube 5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1426ea0067b0048d6b9d3c908fb4665a, type: 2}
   m_SchemaSet:

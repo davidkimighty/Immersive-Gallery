@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: 2fc11dcf1221c4c51af2ac68e3b7c880
-  m_CachedHash:
+  m_DefaultGroup: 03a06fdacd83b44948c47b80714acd75
+  m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 61049750d7b3a5974ff7d958d240df7a
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -24,26 +24,29 @@ MonoBehaviour:
   m_IgnoreUnsupportedFilesInBuild: 0
   m_UniqueBundleIds: 0
   m_NonRecursiveBuilding: 1
-  m_CCDEnabled: 0
-  m_maxConcurrentWebRequests: 500
+  m_CCDEnabled: 1
+  m_maxConcurrentWebRequests: 3
   m_ContiguousBundles: 1
   m_StripUnityVersionFromBundleBuild: 0
   m_DisableVisibleSubAssetRepresentations: 0
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
   m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
+  m_BuildAndReleaseBinFileOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
     m_Id: 
   m_RemoteCatalogLoadPath:
     m_Id: 
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
+  m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
-  m_overridePlayerVersion: 
+  m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: 505e9133f8eeb420eb4ab851be339c5a, type: 2}
   - {fileID: 11400000, guid: ff00d42a5575341288957674034e0403, type: 2}
-  - {fileID: 11400000, guid: 477dc7ac311d64792a8f714c64ab887d, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -52,33 +55,33 @@ MonoBehaviour:
   m_ProfileSettings:
     m_Profiles:
     - m_InheritedParent: 
-      m_Id: a4b80bf6b1f2d43689ed5fe3559bb899
+      m_Id: b0734880e26e2474183b179f4dee5afb
       m_ProfileName: Default
       m_Values:
-      - m_Id: 7d4acbb33a7c44929becca71c6f388b0
+      - m_Id: 5dfd0a78c34d8449f8f96e802299939f
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
-      - m_Id: 96a8de6f342c443989dcae9e1d6fbaf2
+      - m_Id: 246733d63d93d40c89ea24f08da2b752
         m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
-      - m_Id: 226470215c51b4f818b7cfdd83c1c620
+      - m_Id: 44d3f02b240924656b13c4581c2099b4
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
-      - m_Id: 204e796180c3f4f2fa17662a3f8f909a
+      - m_Id: c760662520fa74fe2a9ff0c1cd421bae
         m_Value: ServerData/[BuildTarget]
-      - m_Id: ea630d087246942438ec2c4638334c7f
+      - m_Id: 3673ee672bdfe4bb0a376af8b7152e94
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
     m_ProfileEntryNames:
-    - m_Id: 7d4acbb33a7c44929becca71c6f388b0
+    - m_Id: 5dfd0a78c34d8449f8f96e802299939f
       m_Name: BuildTarget
       m_InlineUsage: 0
-    - m_Id: 96a8de6f342c443989dcae9e1d6fbaf2
+    - m_Id: 246733d63d93d40c89ea24f08da2b752
       m_Name: Local.BuildPath
       m_InlineUsage: 0
-    - m_Id: 226470215c51b4f818b7cfdd83c1c620
+    - m_Id: 44d3f02b240924656b13c4581c2099b4
       m_Name: Local.LoadPath
       m_InlineUsage: 0
-    - m_Id: 204e796180c3f4f2fa17662a3f8f909a
+    - m_Id: c760662520fa74fe2a9ff0c1cd421bae
       m_Name: Remote.BuildPath
       m_InlineUsage: 0
-    - m_Id: ea630d087246942438ec2c4638334c7f
+    - m_Id: 3673ee672bdfe4bb0a376af8b7152e94
       m_Name: Remote.LoadPath
       m_InlineUsage: 0
     m_ProfileVersion: 1
@@ -98,9 +101,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6512fab1567364aefbcbfaceeefdd31b, type: 2}
   - {fileID: 11400000, guid: e038e137d0fe44365861be04e61829d5, type: 2}
   - {fileID: 11400000, guid: 6aa650bd6dc214ffbac7f7b780e1fa04, type: 2}
-  m_ActiveProfileId: a4b80bf6b1f2d43689ed5fe3559bb899
+  m_ActiveProfileId: b0734880e26e2474183b179f4dee5afb
   m_HostingServicesManager:
     m_HostingServiceInfos: []
     m_Settings: {fileID: 11400000}
     m_NextInstanceId: 0
     m_RegisteredServiceTypeRefs: []
+    m_PingTimeoutInMilliseconds: 5000
+  m_CcdManagedData:
+    EnvironmentId: 
+    EnvironmentName: 
+    BucketId: 
+    Badge: 
+    State: 0
