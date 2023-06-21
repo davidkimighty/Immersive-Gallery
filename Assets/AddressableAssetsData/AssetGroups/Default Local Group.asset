@@ -47,6 +47,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e7d6d0335078418abf6b008b426eee4
+    m_Address: Assets/ImmersiveGallery/Scenes/Production/ImmersiveGallery.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e965fe7a21ee4b6588ed9a669241812
+    m_Address: Assets/ImmersiveGallery/Scenes/Production/Persistent.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74f43a2bf3fd34ba78c3d29a16d2ba38
+    m_Address: Assets/ImmersiveGallery/Scenes/Production/Title.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86f90d9dc4e0c40599441778c2775984
+    m_Address: Assets/ImmersiveGallery/Scenes/Production/Loading.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1426ea0067b0048d6b9d3c908fb4665a, type: 2}
   m_SchemaSet:

@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.colliemollie.shadermagic": {
-      "version": "https://github.com/hyunwookimbob/ShaderMagic.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "313007cb9b2ece1b87aea47152c4598b2657a467"
-    },
     "com.hyunwookimbob.broccollie": {
       "version": "https://github.com/hyunwookimbob/Broccollie.git",
       "depth": 0,
@@ -16,7 +9,14 @@
         "com.unity.inputsystem": "1.5.0",
         "com.unity.cinemachine": "2.9.5"
       },
-      "hash": "5ec1fc6a6e54551507b2f127be15804f74b1864d"
+      "hash": "3bdb86f93ac4c78588741537ef5984dccf5b799e"
+    },
+    "com.hyunwookimbob.shadermagic": {
+      "version": "https://github.com/hyunwookimbob/ShaderMagic.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5af7327e5097ed76faa88b424dcdee8939dea67c"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
