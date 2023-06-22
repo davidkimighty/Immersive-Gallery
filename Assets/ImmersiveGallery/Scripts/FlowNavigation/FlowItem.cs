@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,7 +59,7 @@ namespace Gallery
             _injectedPreset = preset;
         }
 
-        public async void MoveToPlaceholderAsync(Transform targetAnchor, bool isCenter = false)
+        public async Task MoveToAnchorAsync(Transform targetAnchor, bool isCenter = false)
         {
             _isCenter = isCenter;
             gameObject.SetActive(true);
@@ -75,7 +74,6 @@ namespace Gallery
                     transform.LerpRotationAsync(targetAnchor.rotation, _rotateDuration, _cts.Token, _rotateCurve),
                     transform.LerpScaleAsync(isCenter ? Vector3.one * _focusedSize : Vector3.one * _unfocusedSize, _scaleDuration, _cts.Token, _scaleCurve)
                 };
-
                 await Task.WhenAll(_moveTask);
             }
             catch (OperationCanceledException) { }
@@ -88,7 +86,7 @@ namespace Gallery
             transform.localScale = Vector3.one * _unfocusedSize;
         }
 
-        public void DisableItem() => gameObject.SetActive(false);
+        public void Disable() => gameObject.SetActive(false);
 
         #endregion
     }
