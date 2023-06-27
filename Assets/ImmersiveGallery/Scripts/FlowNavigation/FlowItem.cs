@@ -10,12 +10,6 @@ namespace Gallery
 {
     public class FlowItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private float _scaleDuration = 0.6f;
-        [SerializeField] private AnimationCurve _scaleCurve = null;
-        [SerializeField] private float _moveDuration = 0.6f;
-        [SerializeField] private AnimationCurve _moveCurve = null;
-        [SerializeField] private float _rotateDuration = 0.6f;
-        [SerializeField] private AnimationCurve _rotateCurve = null;
         [Range(0.1f, 2f)]
         [SerializeField] private float _focusedSize = 1f;
         [Range(0.1f, 1f)]
@@ -31,26 +25,17 @@ namespace Gallery
             get => _injectedPreset;
         }
         private bool _interactable = true;
-        private bool _isCenter = false;
-
         private List<Task> _moveTask = null;
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            if (!_isCenter) return;
-
-            _ = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _cts.Token, _hoveredCurve);
+            //_ = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _cts.Token, _hoveredCurve);
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            if (!_isCenter) return;
-
-            if (_isCenter)
-            {
-                _ = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _cts.Token, _hoveredCurve);
-            }
+            //_ = transform.LerpScaleAsync(Vector3.one * _hoveredSize, _hoveredDuration, _cts.Token, _hoveredCurve);
         }
 
         #region Public Functions
@@ -59,10 +44,8 @@ namespace Gallery
             _injectedPreset = preset;
         }
 
-        public async Task MoveToAnchorAsync(Transform targetAnchor, bool isCenter = false)
+        public async Task MoveToAnchorAsync(Transform targetAnchor, FlowMovementPreset preset)
         {
-            _isCenter = isCenter;
-            gameObject.SetActive(true);
             try
             {
                 _cts.Cancel();
@@ -70,9 +53,8 @@ namespace Gallery
 
                 _moveTask = new List<Task>
                 {
-                    transform.LerpPositionAsync(targetAnchor.position, _moveDuration, _cts.Token, _moveCurve),
-                    transform.LerpRotationAsync(targetAnchor.rotation, _rotateDuration, _cts.Token, _rotateCurve),
-                    transform.LerpScaleAsync(isCenter ? Vector3.one * _focusedSize : Vector3.one * _unfocusedSize, _scaleDuration, _cts.Token, _scaleCurve)
+                    transform.LerpPositionAsync(targetAnchor.position, preset.PositionDuration, _cts.Token, preset.PositionCurve),
+                    transform.LerpRotationAsync(targetAnchor.rotation, preset.RotationDuration, _cts.Token, preset.RotationCurve),
                 };
                 await Task.WhenAll(_moveTask);
             }

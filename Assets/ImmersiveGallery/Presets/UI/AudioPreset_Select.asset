@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: AudioPreset_Select
   m_EditorClassIdentifier: 
   Settings:
-  - IsEnabled: 1
-    ExecutionState: 5
+  - ExecutionStateHelper: 5
+    ExecutionState: Hover
+    IsEnabled: 1
     Audio: {fileID: 0}
     Duration: 0
-  - IsEnabled: 1
-    ExecutionState: 6
+  - ExecutionStateHelper: 6
+    ExecutionState: Press
+    IsEnabled: 1
     Audio: {fileID: 0}
     Duration: 0

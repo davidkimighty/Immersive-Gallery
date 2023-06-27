@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fadeEventChannel: {fileID: 11400000, guid: bc4dc0e99daf948b38651ff680b2f420, type: 2}
-  _fadeFeature: {fileID: 2657066285842522776, guid: c40be3174f62c4acf8c1216858c64956,
+  _fadeFeature: {fileID: 5150569838605295095, guid: c40be3174f62c4acf8c1216858c64956,
     type: 2}
   _maxValue: 10
   _minValue: 0

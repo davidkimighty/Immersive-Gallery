@@ -67,6 +67,60 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fcf39ef7f63f4e30bf52779a3cf2489
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7096acada731844efb35034b048ed508
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03743d454592343cc9372903a40d8292
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97da5fbe4a173465887df9dde988ae8c
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ab0f0849afd34e429747ebe51419b40
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0485346e44a5e4a65bdcc3b85682c07a
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      6.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0814a0fc6ea9402e8945e1325d9f4a7
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      7.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4520c0b1a43847bd9948ec65f723486
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      8.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3aadf1d96db264e75bec106957f50898
+    m_Address: Assets/ImmersiveGallery/Prefabs/FlowNavigation/SubFlowItems/SubFlowItem_Cube
+      9.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1426ea0067b0048d6b9d3c908fb4665a, type: 2}
   m_SchemaSet:
