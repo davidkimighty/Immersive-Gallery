@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -43,27 +44,27 @@ namespace Gallery
         private readonly Dictionary<string, Stack<int>> _botStacks = new();
 
         private string _selectedItemsKey = null;
-        private List<Task> _movePositionsTask = null;
-        private CancellationTokenSource _cts = new();
+        private CancellationTokenSource _moveCts = new();
+        private CancellationTokenSource _moveToIndexCts = new();
 
         private void Awake()
         {
-            _upButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(true);
-            _downButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(false);
+            _upButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(true, true);
+            _downButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(false, true);
             _selectButton.OnClick += (sender, args) => SelectItemAsync();
             _backButton.OnClick += (sender, args) => BackSelectionAsync();
 
-            _backButton.ChangeState(UIStates.Hide.ToString(), true, false, false);
+            _backButton.SetActive(false);
         }
 
         #region Subscribers
-        private async void MovePositionsByDirectionAsync(bool up)
+        private async void MovePositionsByDirectionAsync(bool up, bool updateArrow)
         {
             if (!_createdItems.TryGetValue(_selectedItemsKey, out List<FlowItem> flowItems) ||
                 !_activeIndexes.TryGetValue(_selectedItemsKey, out List<int> indexes)) return;
 
             int centerIndex = _selectedItemsKey == s_mainItemsKey ? _mainItemCenterIndex : _subItemCenterIndex;
-            if ((!up && indexes[centerIndex] == flowItems.Count - 1) || (up && indexes[centerIndex] == 0))
+            if ((up && indexes[centerIndex] == flowItems.Count - 1) || (!up && indexes[centerIndex] == 0))
             {
                 // error sound?
                 return;
@@ -72,28 +73,10 @@ namespace Gallery
             List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
             if (up)
             {
-                if (_botStacks[_selectedItemsKey].TryPop(out int botpop))
-                {
-                    indexes.Insert(0, botpop);
-                    flowItems[botpop].MoveToAnchorReady(anchors[0]);
-                }
-                else
-                    indexes.Insert(0, s_emptyIndex);
-
-                int lastActiveIndex = indexes.Last();
-                if (lastActiveIndex != s_emptyIndex)
-                {
-                    _topStacks[_selectedItemsKey].Push(lastActiveIndex);
-                    flowItems[lastActiveIndex].Disable();
-                }
-                indexes.RemoveAt(indexes.Count - 1);
-            }
-            else
-            {
                 if (_topStacks[_selectedItemsKey].TryPop(out int toppop))
                 {
                     indexes.Insert(indexes.Count, toppop);
-                    flowItems[toppop].MoveToAnchorReady(anchors[anchors.Count - 1]);
+                    flowItems[toppop].SetReady(true, anchors[anchors.Count - 1]);
                 }
                 else
                     indexes.Insert(indexes.Count, s_emptyIndex);
@@ -102,61 +85,91 @@ namespace Gallery
                 if (firstActiveIndex != s_emptyIndex)
                 {
                     _botStacks[_selectedItemsKey].Push(firstActiveIndex);
-                    flowItems[firstActiveIndex].Disable();
+                    flowItems[firstActiveIndex].SetReady(false, anchors[0]);
                 }
                 indexes.RemoveAt(0);
             }
+            else
+            {
+                if (_botStacks[_selectedItemsKey].TryPop(out int botpop))
+                {
+                    indexes.Insert(0, botpop);
+                    flowItems[botpop].SetReady(true, anchors[0]);
+                }
+                else
+                    indexes.Insert(0, s_emptyIndex);
+
+                int lastActiveIndex = indexes.Last();
+                if (lastActiveIndex != s_emptyIndex)
+                {
+                    _topStacks[_selectedItemsKey].Push(lastActiveIndex);
+                    flowItems[lastActiveIndex].SetReady(false, anchors[anchors.Count - 1]);
+                }
+                indexes.RemoveAt(indexes.Count - 1);
+            }
+
+            if (updateArrow)
+                ToggleArrowButtons(indexes[centerIndex], flowItems.Count - 1);
             await UpdateActiveItemsPositionAsync(flowItems, indexes, anchors, _itemMovePreset);
         }
 
         private async void SelectItemAsync()
         {
-            if (!_createdItems.TryGetValue(_selectedItemsKey, out List<FlowItem> flowItems) ||
-                !_activeIndexes.TryGetValue(_selectedItemsKey, out List<int> indexes)) return;
+            if (_activeIndexes[s_mainItemsKey][_mainItemCenterIndex] == s_emptyIndex) return;
 
-            int centerIndex = _selectedItemsKey == s_mainItemsKey ? _mainItemCenterIndex : _subItemCenterIndex;
-            if (indexes[centerIndex] == s_emptyIndex) return;
+            int selectedIndex = _activeIndexes[s_mainItemsKey][_mainItemCenterIndex];
+            MoveItemsToSelectionPointsAsync(_createdItems[s_mainItemsKey][selectedIndex]);
+            _backButton.SetActive(true);
 
-            MoveItemsToSelectionPointsAsync();
-            _backButton.ChangeState(UIStates.Show.ToString());
-
-            _selectedItemsKey = flowItems[indexes[centerIndex]].InjectedPreset.Name;
+            _selectedItemsKey = _createdItems[s_mainItemsKey][selectedIndex].InjectedPreset.Name;
             if (_createdItems.TryGetValue(_selectedItemsKey, out List<FlowItem> subItems))
             {
-                await MoveToIndexAsync(0);
+                try
+                {
+                    _moveToIndexCts.Cancel();
+                    _moveToIndexCts = new();
+
+                    await MoveToIndexAsync(0, _moveToIndexCts.Token);
+                }
+                catch (OperationCanceledException) { }
             }
             else
             {
                 _itemDescriptionText.enabled = true;
                 _upButton.SetActive(false);
-                _downButton.ChangeState(UIStates.Hide.ToString());
+                _downButton.SetActive(false);
             }
 
-            async void MoveItemsToSelectionPointsAsync()
+            async void MoveItemsToSelectionPointsAsync(FlowItem selectedItem)
             {
-                _movePositionsTask = new List<Task>
+                List<Task> movePositionsTask = new List<Task>
                 {
-                    flowItems[indexes[_mainItemCenterIndex]].MoveToAnchorAsync(_selectedItemAnchor, _itemSelectionMovePreset),
-                    Camera.main.transform.LerpPositionAsync(_selectedCameraAnchor.position, _cameraSelectionMovePreset.PositionDuration, _cts.Token, _cameraSelectionMovePreset.PositionCurve)
+                    selectedItem.MoveToAnchorAsync(_selectedItemAnchor, _itemSelectionMovePreset),
+                    Camera.main.transform.LerpPositionAsync(_selectedCameraAnchor.position, _cameraSelectionMovePreset.PositionDuration, _moveCts.Token, _cameraSelectionMovePreset.PositionCurve)
                 };
-                await Task.WhenAll(_movePositionsTask);
+                await Task.WhenAll(movePositionsTask);
             }
         }
 
         private async void BackSelectionAsync()
         {
-            _selectedItemsKey = s_mainItemsKey;
-            _itemDescriptionText.enabled = false;
-            _backButton.ChangeState(UIStates.Hide.ToString());
-            _upButton.SetActive(true);
-            _downButton.ChangeState(UIStates.Show.ToString());
+            string previousItemKey = _selectedItemsKey;
+            DisableActiveItemsAsync(previousItemKey, (int)_cameraSelectionMovePreset.PositionDuration * 1000);
 
-            _movePositionsTask = new List<Task>
+            _selectedItemsKey = s_mainItemsKey;
+            _backButton.SetActive(false);
+            _itemDescriptionText.enabled = false;
+
+            int centerIndex = _selectedItemsKey == s_mainItemsKey ? _mainItemCenterIndex : _subItemCenterIndex;
+            int centerItemIndex = _activeIndexes[_selectedItemsKey][centerIndex];
+            ToggleArrowButtons(centerItemIndex, _createdItems[_selectedItemsKey].Count - 1);
+
+            List<Task> movePositionsTask = new List<Task>
             {
                 UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], _activeIndexes[_selectedItemsKey], _itemAnchors, _itemSelectionMovePreset),
-                Camera.main.transform.LerpPositionAsync(Vector3.zero, _cameraSelectionMovePreset.PositionDuration, _cts.Token, _cameraSelectionMovePreset.PositionCurve)
+                Camera.main.transform.LerpPositionAsync(Vector3.zero, _cameraSelectionMovePreset.PositionDuration, _moveCts.Token, _cameraSelectionMovePreset.PositionCurve)
             };
-            await Task.WhenAll(_movePositionsTask);
+            await Task.WhenAll(movePositionsTask);
         }
 
         #endregion
@@ -230,7 +243,7 @@ namespace Gallery
                         _topStacks[preset.Name].Push(i);
                 }
             }
-            await MoveToIndexAsync(0);
+            await MoveToIndexAsync(0, _moveToIndexCts.Token);
 
             async Task CreateFlowItems(List<FlowItemPreset> presets, List<FlowItem> items)
             {
@@ -254,18 +267,28 @@ namespace Gallery
             }
         }
 
-        public async Task MoveToIndexAsync(int index)
+        public async Task MoveToIndexAsync(int index, CancellationToken ct)
         {
             if (!_activeIndexes.TryGetValue(_selectedItemsKey, out List<int> indexes)) return;
 
             int centerIndex = _selectedItemsKey == s_mainItemsKey ? _mainItemCenterIndex : _subItemCenterIndex;
             if (index < 0 || index > _createdItems[_selectedItemsKey].Count - 1) return;
 
-            bool up = indexes[centerIndex] - index > 0;
-            while (indexes[centerIndex] != index)
+            if (indexes[centerIndex] != index)
             {
-                MovePositionsByDirectionAsync(up);
-                await Task.Delay((int)_moveToIndexDelay * 1000);
+                ToggleArrowButtons(index, _createdItems[_selectedItemsKey].Count - 1);
+                bool up = TargetDirIsUp(index, centerIndex);
+                while (indexes[centerIndex] != index)
+                {
+                    MovePositionsByDirectionAsync(up, false);
+                    await Task.Delay((int)_moveToIndexDelay * 1000, ct);
+                }
+            }
+            else
+            {
+                ToggleArrowButtons(indexes[centerIndex], _createdItems[_selectedItemsKey].Count - 1);
+                List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
+                await UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], indexes, anchors, _itemMovePreset);
             }
         }
 
@@ -273,13 +296,46 @@ namespace Gallery
 
         private async Task UpdateActiveItemsPositionAsync(List<FlowItem> flowItems, List<int> indexes, List<Transform> anchors, FlowMovementPreset preset)
         {
-            _movePositionsTask = new List<Task>();
+            List<Task> movePositionsTask = new List<Task>();
             for (int i = 0; i < indexes.Count; i++)
             {
                 if (indexes[i] == s_emptyIndex) continue;
-                _movePositionsTask.Add(flowItems[indexes[i]].MoveToAnchorAsync(anchors[i], preset));
+                movePositionsTask.Add(flowItems[indexes[i]].MoveToAnchorAsync(anchors[i], preset));
             }
-            await Task.WhenAll(_movePositionsTask);
+            await Task.WhenAll(movePositionsTask);
         }
+
+        private async void DisableActiveItemsAsync(string key, int delayMillisec)
+        {
+            if (!_createdItems.TryGetValue(key, out List<FlowItem> items)) return;
+
+            await Task.Delay(delayMillisec);
+            if (key == _selectedItemsKey) return;
+
+            List<Transform> anchors = key == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
+            foreach (FlowItem item in items)
+                item.SetReady(false, anchors[anchors.Count - 1]);
+        }
+
+        private void ToggleArrowButtons(int centerItemIndex, int lastItemIndex)
+        {
+            if (centerItemIndex == lastItemIndex)
+            {
+                _upButton.SetActive(false);
+                _downButton.SetActive(true);
+            }
+            else if (centerItemIndex == 0)
+            {
+                _downButton.SetActive(false);
+                _upButton.SetActive(true);
+            }
+            else
+            {
+                _upButton.SetActive(true);
+                _downButton.SetActive(true);
+            }
+        }
+
+        private bool TargetDirIsUp(int targetIndex, int centerIndex) => _activeIndexes[_selectedItemsKey][centerIndex] - targetIndex < 0;
     }
 }

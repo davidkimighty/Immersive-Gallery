@@ -46,6 +46,7 @@ namespace Gallery
 
         public async Task MoveToAnchorAsync(Transform targetAnchor, FlowMovementPreset preset)
         {
+            gameObject.SetActive(true);
             try
             {
                 _cts.Cancel();
@@ -61,14 +62,12 @@ namespace Gallery
             catch (OperationCanceledException) { }
         }
 
-        public void MoveToAnchorReady(Transform targetAnchor)
+        public void SetReady(bool state, Transform targetAnchor)
         {
-            gameObject.SetActive(true);
+            gameObject.SetActive(state);
             transform.position = targetAnchor.position;
             transform.localScale = Vector3.one * _unfocusedSize;
         }
-
-        public void Disable() => gameObject.SetActive(false);
 
         #endregion
     }
