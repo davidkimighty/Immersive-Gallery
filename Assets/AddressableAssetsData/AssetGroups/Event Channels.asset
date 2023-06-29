@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Event Channels
+  m_EditorClassIdentifier: 
+  m_GroupName: Event Channels
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 69b05a7fd398145378dde8878c1478d8
+  m_SerializeEntries:
+  - m_GUID: 64b68996a001d401084a0ab3fe0397a4
+    m_Address: EventChannel_Audio
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc4dc0e99daf948b38651ff680b2f420
+    m_Address: EventChannel_Fade
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 53b6c99c561e24f02b25c52a1c4e8f0b
+    m_Address: EventChannel_SceneAddressable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 1426ea0067b0048d6b9d3c908fb4665a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a091870c9c06644c8aa8fc99c72057f8, type: 2}
+    - {fileID: 11400000, guid: 7cfa20a5ef10b45f6a63cd4a9fe515d9, type: 2}

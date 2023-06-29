@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using System.Collections;
 using Broccollie.System;
 using ShaderMagic.Shaders;
 using UnityEngine;
@@ -15,13 +15,16 @@ namespace Gallery
 
         [SerializeField] private SceneAddressablePreset _immersiveGalleryScene = null;
 
-        private async void Awake()
+        private void Awake()
         {
-            await _fadeEventChannel.RequestFadeAsync(0, _fadeDuration);
+            _fadeEventChannel.RequestFade(0, _fadeDuration);
+        }
 
-            await Task.Delay(3000);
+        private IEnumerator Start()
+        {
+            yield return new WaitForSeconds(3);
 
-            await _sceneEventChannel.RequestSceneLoadAsync(_immersiveGalleryScene, false);
+            _sceneEventChannel.RequestSceneLoadAsync(_immersiveGalleryScene, false);
         }
     }
 }

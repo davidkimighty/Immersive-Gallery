@@ -8,8 +8,9 @@ namespace Gallery
     public class FlowItemPreset : ScriptableObject
     {
         public int Id = -1;
-        public string Name = null;
+        public string ItemName = null;
         public AssetReference ItemRef = null;
         public List<FlowItemPreset> SubFlowItems = null;
+        public string ItemDescription = null;
     }
 }

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: ItemPreset_Cube 5
   m_EditorClassIdentifier: 
   Id: 1
-  Name: Cube 5
+  ItemName: Cube 6
   ItemRef:
     m_AssetGUID: 214021835befb4d4f886e764b568d61c
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   SubFlowItems: []
+  ItemDescription: This is a Cube. Bla bla bla.

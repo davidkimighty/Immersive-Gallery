@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemPreset_Cube 4
   m_EditorClassIdentifier: 
   Id: 1
-  Name: Cube 4
+  ItemName: Cube 5
   ItemRef:
     m_AssetGUID: bc081689d7a1b450eac55fbedbd97c19
     m_SubObjectName: 
@@ -23,3 +23,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dfc9b3502419046418590124fed5891f, type: 2}
   - {fileID: 11400000, guid: efd42c92454f74b9ca8253655e7f8e24, type: 2}
   - {fileID: 11400000, guid: 9b2b8562e7db148a7a4cbac0158a2cf8, type: 2}
+  ItemDescription: This is a Cube. Bla bla bla.

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: ItemPreset_Cube 2
   m_EditorClassIdentifier: 
   Id: 1
-  Name: Cube 2
+  ItemName: Sub Cube 2
   ItemRef:
     m_AssetGUID: 7096acada731844efb35034b048ed508
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   SubFlowItems: []
+  ItemDescription: 
