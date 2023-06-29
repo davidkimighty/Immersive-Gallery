@@ -25,7 +25,7 @@ namespace Gallery
         [SerializeField] private Transform _selectedCameraAnchor = null;
         [SerializeField] private int _mainItemCenterIndex = 2; // first index is 0
         [SerializeField] private int _subItemCenterIndex = 3;
-        [SerializeField] private float _moveToIndexDelay = 0.7f;
+        [SerializeField] private float _moveToIndexDelay = 0.2f;
 
         [SerializeField] private FlowMovementPreset _itemMovePreset = null;
         [SerializeField] private FlowMovementPreset _itemSelectionMovePreset = null;
