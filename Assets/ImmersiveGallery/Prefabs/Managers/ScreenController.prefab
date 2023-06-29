@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6985349021859492101}
   - component: {fileID: 586233244056358064}
+  - component: {fileID: -8117765601646810046}
   m_Layer: 0
   m_Name: ScreenController
   m_TagString: Untagged
@@ -52,6 +53,47 @@ MonoBehaviour:
   _defaultFadeValue: 3
   _defaultDuration: 1
   _fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &-8117765601646810046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7406849831281478341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df102b3cbe4c4ae3bf7736c160a3721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blurEventChannel: {fileID: 11400000, guid: 4fde6abecbf4f48cbb62bf12d2ab3131, type: 2}
+  _blurFeature: {fileID: -2917919822062995610, guid: c40be3174f62c4acf8c1216858c64956,
+    type: 2}
+  _maxValue: 100
+  _minValue: 0
+  _blurCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3

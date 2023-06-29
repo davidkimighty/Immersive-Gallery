@@ -10,7 +10,6 @@ namespace Gallery
         [Header("Event Channels")]
         [SerializeField] private SceneAddressableEventChannel _sceneEventChannel = null;
         [SerializeField] private FadeEventChannel _fadeEventChannel = null;
-
         [SerializeField] private float _fadeDuration = 1f;
 
         [Header("Scenes")]

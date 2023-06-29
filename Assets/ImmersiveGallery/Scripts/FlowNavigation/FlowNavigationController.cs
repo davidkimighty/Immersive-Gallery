@@ -15,6 +15,8 @@ namespace Gallery
     {
         private const string s_mainItemsKey = "MainItem";
         private const int s_emptyIndex = -1;
+        private const string s_select = "select";
+        private const string s_play = "play";
 
         [SerializeField] private Canvas _canvas = null;
         [SerializeField] private List<FlowItemPreset> _itemPresets = null;
@@ -33,9 +35,11 @@ namespace Gallery
 
         [SerializeField] private TextMeshProUGUI _itemNameText = null;
         [SerializeField] private TextMeshProUGUI _itemDescriptionText = null;
+        [SerializeField] private GameObject _rotateIndicators = null;
         [SerializeField] private ButtonUI _upButton = null;
         [SerializeField] private ButtonUI _downButton = null;
         [SerializeField] private ButtonUI _selectButton = null;
+        [SerializeField] private TextMeshProUGUI _selectText = null;
         [SerializeField] private ButtonUI _backButton = null;
 
         private Dictionary<string, List<FlowItem>> _createdItems = null;
@@ -57,6 +61,7 @@ namespace Gallery
             _backButton.OnClick += (sender, args) => BackSelectionAsync();
 
             _backButton.SetActive(false);
+            _rotateIndicators.SetActive(false);
         }
 
         #region Subscribers
@@ -124,8 +129,11 @@ namespace Gallery
 
             int selectedIndex = _activeIndexes[s_mainItemsKey][_mainItemCenterIndex];
             FlowItem selectedItem = _createdItems[s_mainItemsKey][selectedIndex];
+            selectedItem.EnableShowcaser(true, _selectedItemAnchor.rotation);
+
             MoveItemsToSelectionPointsAsync(selectedItem);
             _backButton.SetActive(true);
+            _selectText.text = s_play;
 
             _selectedItemsKey = selectedItem.InjectedPreset.ItemName;
             if (_createdItems.TryGetValue(_selectedItemsKey, out List<FlowItem> subItems))
@@ -165,12 +173,14 @@ namespace Gallery
             _selectedItemsKey = s_mainItemsKey;
             _backButton.SetActive(false);
             _itemDescriptionText.enabled = false;
+            _selectText.text = s_select;
 
             int centerIndex = _selectedItemsKey == s_mainItemsKey ? _mainItemCenterIndex : _subItemCenterIndex;
             int centerItemIndex = _activeIndexes[_selectedItemsKey][centerIndex];
             ToggleArrowButtons(centerItemIndex, _createdItems[_selectedItemsKey].Count - 1);
             _itemNameText.text = _createdItems[_selectedItemsKey][centerItemIndex].InjectedPreset.ItemName;
 
+            _createdItems[_selectedItemsKey][centerItemIndex].EnableShowcaser(false, Quaternion.identity);
             List<Task> movePositionsTask = new List<Task>
             {
                 UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], _activeIndexes[_selectedItemsKey], _itemAnchors, _itemSelectionMovePreset),
@@ -271,7 +281,7 @@ namespace Gallery
 
                     if (mainGo.TryGetComponent<FlowItem>(out FlowItem item))
                     {
-                        item.Initialize(presets[i]);
+                        item.Initialize(presets[i], _rotateIndicators);
                         items.Add(item);
                     }
                 }
@@ -301,7 +311,7 @@ namespace Gallery
                 _itemNameText.text = _createdItems[_selectedItemsKey][centerIndex].InjectedPreset.ItemName;
                 ToggleArrowButtons(indexes[centerIndex], _createdItems[_selectedItemsKey].Count - 1);
                 List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
-                _ = UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], indexes, anchors, _itemMovePreset);
+                yield return UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], indexes, anchors, _itemMovePreset);
             }
         }
 

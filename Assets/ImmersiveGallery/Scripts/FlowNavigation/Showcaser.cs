@@ -1,61 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 using Broccollie.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Gallery.Gameboy
+namespace Gallery
 {
     public class Showcaser : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        #region Variable field
-        [SerializeField] private Transform _showcaseObject = null;
+        public event Action OnBeginDrag = null;
+        public event Action OnEndDrag = null;
+
         [SerializeField] private float _rotationSpeed = 30f;
         [SerializeField] private float _rotationDamping = 0.3f;
         [SerializeField] private float _resetWaitTime = 3f;
         [SerializeField] private float _resetRotationTime = 0.3f;
-        [SerializeField] private bool _isDragging = false;
 
+        private bool _showcaseEnabled = false;
+        private bool _isDragging = false;
+        public bool IsDragging
+        {
+            get => _isDragging;
+        }
+        private bool _needsReset = false;
         private Quaternion _originalRotation = Quaternion.identity;
         private float _rotationVelocityX = 0f;
         private float _rotationVelocityY = 0f;
         private float _currentResetWaitTime = 0f;
 
-        private Task _resetTask = null;
         private CancellationTokenSource _cts = new CancellationTokenSource();
-        #endregion
 
-        private void Start()
+        void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            if (_showcaseObject == null) return;
-            _originalRotation = _showcaseObject.localRotation;
+            _needsReset = _isDragging = true;
+            OnBeginDrag?.Invoke();
         }
 
-        #region Public Functions
-        public void SetShowcaseObject(Transform showcaseObject, bool resetRatation = false)
+        void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            _showcaseObject = showcaseObject;
-            _originalRotation = resetRatation ? Quaternion.identity : _showcaseObject.localRotation;
+            _isDragging = false;
+            OnEndDrag?.Invoke();
         }
 
-        public void ResetMovement()
+        void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            _resetTask = null;
-            _currentResetWaitTime = 0f;
-            _rotationVelocityX = 0f;
-            _rotationVelocityY = 0f;
-        }
-        #endregion
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _isDragging = true;
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
+            if (!_showcaseEnabled) return;
             //if (eventData.pointerId != 2) return;
 
             float rotDeltaX = eventData.delta.x * _rotationSpeed * Time.deltaTime;
@@ -64,25 +53,35 @@ namespace Gallery.Gameboy
             _rotationVelocityX = Mathf.Lerp(_rotationVelocityX, rotDeltaX, Time.deltaTime);
             _rotationVelocityY = Mathf.Lerp(_rotationVelocityY, rotDeltaY, Time.deltaTime);
 
-            _showcaseObject.Rotate(Vector3.up, -_rotationVelocityX, Space.Self);
-            _showcaseObject.Rotate(Vector3.forward, -_rotationVelocityY, Space.Self);
+            transform.Rotate(Vector3.up, -_rotationVelocityX);
+            transform.Rotate(Vector3.forward, -_rotationVelocityY);
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        #region Public Functions
+        public void EnableShowcase(bool state, Quaternion originalRot)
         {
-            _isDragging = false;
+            _showcaseEnabled = state;
+            _originalRotation = originalRot;
         }
+
+        public void ResetMovement()
+        {
+            _currentResetWaitTime = 0f;
+            _rotationVelocityX = 0f;
+            _rotationVelocityY = 0f;
+        }
+
+        #endregion
 
         private void Update()
         {
-            if (_showcaseObject == null) return;
+            if (transform == null || !_showcaseEnabled) return;
 
             VelocityXMovement();
             VelocityYMovement();
             BackToOriginalRotation();
         }
 
-        #region Showcase Features
         private void VelocityXMovement()
         {
             if (!_isDragging && !Mathf.Approximately(_rotationVelocityX, 0))
@@ -92,7 +91,7 @@ namespace Gallery.Gameboy
                     Mathf.Sign(_rotationVelocityX) * _rotationVelocityX
                 );
                 _rotationVelocityX -= deltaVelocity;
-                _showcaseObject.Rotate(Vector3.up, -_rotationVelocityX, Space.Self);
+                transform.Rotate(Vector3.up, -_rotationVelocityX);
             }
         }
 
@@ -105,41 +104,38 @@ namespace Gallery.Gameboy
                     Mathf.Sign(_rotationVelocityY) * _rotationVelocityY
                 );
                 _rotationVelocityY -= deltaVelocity;
-                _showcaseObject.Rotate(Vector3.forward, -_rotationVelocityY, Space.Self);
+                transform.Rotate(Vector3.forward, -_rotationVelocityY);
             }
         }
 
-        private void BackToOriginalRotation()
+        private async void BackToOriginalRotation()
         {
             if (CanReset())
             {
                 _currentResetWaitTime += Time.deltaTime;
-                if (_currentResetWaitTime < _resetWaitTime || _resetTask != null) return;
+                if (_currentResetWaitTime < _resetWaitTime) return;
+                
+                try
+                {
+                    _cts.Cancel();
+                    _cts = new CancellationTokenSource();
 
-                _resetTask = ResetRotationAsync();
+                    await transform.LerpRotationAsync(_originalRotation, _resetRotationTime, _cts.Token);
+                    _currentResetWaitTime = _rotationVelocityX = _rotationVelocityY = 0f;
+                    _needsReset = false;
+                }
+                catch (OperationCanceledException) { }
             }
             else
-            {
                 _currentResetWaitTime = 0f;
-            }
-
-            async Task ResetRotationAsync()
-            {
-                _cts.Cancel();
-                _cts = new CancellationTokenSource();
-
-                await _showcaseObject.LerpLocalRotationAsync(_originalRotation, _resetRotationTime, _cts.Token);
-                _currentResetWaitTime = _rotationVelocityX = _rotationVelocityY = 0f;
-                _resetTask = null;
-            }
 
             bool CanReset()
             {
                 return !_isDragging && Mathf.Approximately(_rotationVelocityX, 0)
                     && Mathf.Approximately(_rotationVelocityY, 0)
-                    && _showcaseObject.localRotation != _originalRotation;
+                    && transform.localRotation != _originalRotation
+                    && _needsReset;
             }
         }
-        #endregion
     }
 }

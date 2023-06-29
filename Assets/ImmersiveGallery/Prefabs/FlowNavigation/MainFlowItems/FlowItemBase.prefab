@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4595451792661469030}
   - component: {fileID: -4334937340189362242}
+  - component: {fileID: -3181002192506573729}
   m_Layer: 0
   m_Name: FlowItemBase
   m_TagString: Untagged
@@ -45,8 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9700c245336bf4042b277b7b7ec4c4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _focusedSize: 1
-  _unfocusedSize: 0.8
+  _showcaser: {fileID: -3181002192506573729}
   _hoveredSize: 1.05
   _hoveredDuration: 0.25
   _hoveredCurve:
@@ -73,9 +73,26 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _newPositionInterval: 5
   _newRotationInterval: 3
   _moveSpeed: 0.002
   _rotationSpeed: 0.01
+--- !u!114 &-3181002192506573729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949931041000722653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba69fbaabcdec43e4ac6649986bf22e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 7
+  _rotationDamping: 0.3
+  _resetWaitTime: 3
+  _resetRotationTime: 0.3
 --- !u!1 &1799091942003627411
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 1799091942003627411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5618979904233999640}
@@ -119,6 +136,7 @@ GameObject:
   - component: {fileID: 5618979904233999640}
   - component: {fileID: 5107345169921786358}
   - component: {fileID: 6782148851461872484}
+  - component: {fileID: 478604393619206601}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -191,3 +209,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &478604393619206601
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5853015734474035405}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
