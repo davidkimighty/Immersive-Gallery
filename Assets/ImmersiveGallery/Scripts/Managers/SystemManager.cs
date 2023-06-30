@@ -23,7 +23,7 @@ namespace Gallery
         }
 
         #region Subscribers
-        private async Task FadeIn() => await _fadeEventChannel.RequestFadeAsync(1f, _fadeDuration);
+        private async Task FadeIn(SceneAddressablePreset preset) => await _fadeEventChannel.RequestFadeAsync(1f, _fadeDuration);
 
         #endregion
     }
