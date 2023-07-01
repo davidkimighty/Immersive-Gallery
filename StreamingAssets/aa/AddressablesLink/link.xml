@@ -20,6 +20,7 @@
     <type fullname="Broccollie.System.SceneAddressableEventChannel" preserve="all" />
     <type fullname="Broccollie.System.SceneAddressableLoader" preserve="all" />
     <type fullname="Broccollie.System.SceneAddressablePreset" preserve="all" />
+    <type fullname="Broccollie.System.ScreenFader" preserve="all" />
   </assembly>
   <assembly fullname="Broccollie.UI, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="Broccollie.UI.AudioUIFeature" preserve="all" />
@@ -32,16 +33,6 @@
     <type fullname="Broccollie.UI.AudioUIPreset/AudioSetting" preserve="nothing" serialized="true" />
     <type fullname="Broccollie.UI.SpriteUIFeature/Element" preserve="nothing" serialized="true" />
     <type fullname="Broccollie.UI.SpriteUIPreset/SpriteSetting" preserve="nothing" serialized="true" />
-  </assembly>
-  <assembly fullname="ShaderMagic.Shaders, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="ShaderMagic.Shaders.BlurController" preserve="all" />
-    <type fullname="ShaderMagic.Shaders.BlurEventChannel" preserve="all" />
-    <type fullname="ShaderMagic.Shaders.BlurFeature" preserve="all" />
-    <type fullname="ShaderMagic.Shaders.FadeController" preserve="all" />
-    <type fullname="ShaderMagic.Shaders.FadeEventChannel" preserve="all" />
-    <type fullname="ShaderMagic.Shaders.FadeFeature" preserve="all" />
-    <type fullname="ShaderMagic.Shaders.BlurFeature/PassSetting" preserve="nothing" serialized="true" />
-    <type fullname="ShaderMagic.Shaders.FadeFeature/PassSetting" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
