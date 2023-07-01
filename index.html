@@ -7,7 +7,7 @@
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1" style="width: 1920px; height: 1080px; background: #231F20"></canvas>
-    <script src="Build/v0.1.loader.js"></script>
+    <script src="Build/Test.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -25,9 +25,9 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/v0.1.data.br",
-        frameworkUrl: "Build/v0.1.framework.js.br",
-        codeUrl: "Build/v0.1.wasm.br",
+        dataUrl: "Build/Test.data.br",
+        frameworkUrl: "Build/Test.framework.js.br",
+        codeUrl: "Build/Test.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "hyunwookimbob",
         productName: "Immersive Gallery",
