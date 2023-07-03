@@ -63,7 +63,6 @@ namespace Gallery
 
             if (_showcaserEnabled)
             {
-                _originScale = transform.localScale;
                 if (_hoverScaleCoroutine != null)
                     StopCoroutine(_hoverScaleCoroutine);
                 _hoverScaleCoroutine = transform.LerpScale(_originScale * _hoveredSize, _hoveredDuration, _hoveredCurve);
@@ -99,6 +98,7 @@ namespace Gallery
             if (_randomFloatCoroutine != null)
                 StopCoroutine(_randomFloatCoroutine);
 
+            _originScale = targetAnchor.localScale;
             gameObject.SetActive(true);
             try
             {

@@ -1569,7 +1569,7 @@ Transform:
   m_Children:
   - {fileID: 4316374616513591408}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1047808364754131018
 MonoBehaviour:
@@ -1588,6 +1588,10 @@ MonoBehaviour:
   _sceneEventChannel: {fileID: 11400000, guid: 53b6c99c561e24f02b25c52a1c4e8f0b, type: 2}
   _turnOnScenes:
   - {fileID: 11400000, guid: 259fcef17a52d49b1a1bd2b89bd86981, type: 2}
+  _mixer: {fileID: 24100000, guid: 82bc663cb80ce4c5b90a6432d996e499, type: 2}
+  _musicSlider: {fileID: 6832367698871414091}
+  _sfxSlider: {fileID: 5950346530788453007}
+  _ambientSlider: {fileID: 6059439409858624539}
   _titleText: {fileID: 4739623064829548152}
   _screenFader: {fileID: 481458605231955219}
   _fadeStrength: 0.97

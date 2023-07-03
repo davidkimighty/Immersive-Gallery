@@ -5,16 +5,25 @@ using Broccollie.System;
 using Broccollie.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Gallery
 {
     public class SettingController : MonoBehaviour
     {
+        private const string s_musicKey = "MusicVolume";
+        private const string s_sfxKey = "SFXVolume";
+        private const string s_ambientKey = "AmbientVolume";
+
         [SerializeField] private SettingEventChannel _settingEventChannel = null;
         [SerializeField] private SceneAddressableEventChannel _sceneEventChannel = null;
         [SerializeField] private List<SceneAddressablePreset> _turnOnScenes = null;
 
+        [SerializeField] private AudioMixer _mixer = null;
+        [SerializeField] private Slider _musicSlider = null;
+        [SerializeField] private Slider _sfxSlider = null;
+        [SerializeField] private Slider _ambientSlider = null;
         [SerializeField] private TextMeshProUGUI _titleText = null;
         [SerializeField] private Image _screenFader = null;
         [SerializeField] private float _fadeStrength = 0.9f;
@@ -27,6 +36,10 @@ namespace Gallery
 
         private void Awake()
         {
+            _musicSlider.onValueChanged.AddListener((volume) => ChangeVolume(s_musicKey, volume));
+            _sfxSlider.onValueChanged.AddListener((volume) => ChangeVolume(s_sfxKey, volume));
+            _ambientSlider.onValueChanged.AddListener((volume) => ChangeVolume(s_ambientKey, volume));
+
             _settingButton.OnClick += OpenSettingsPanel;
             _settingButton.OnDefault += HideSettingsPanel;
 
@@ -46,6 +59,8 @@ namespace Gallery
         }
 
         #region Subscribers
+        private void ChangeVolume(string name, float volume) => _mixer.SetFloat(name, volume);
+
         private void EnableSettingButton(SceneAddressablePreset preset)
         {
             if (_turnOnScenes == null) return;
