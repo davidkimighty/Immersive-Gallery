@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5342c420259a74fcd8fda45aeffbc4f7, type: 3}
   m_Name: MovePreset_FlowItem
   m_EditorClassIdentifier: 
-  PositionDuration: 1.3
+  PositionDuration: 1.5
   PositionCurve:
     serializedVersion: 2
     m_Curve:
@@ -26,8 +26,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.19877392
-      value: 1.0000083
+      time: 0.18793647
+      value: 0.9755163
       inSlope: 1.2319398
       outSlope: 1.2319398
       tangentMode: 0
@@ -35,14 +35,14 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.26831084
-      value: 1.1105865
-      inSlope: 0.30513874
-      outSlope: 0.30513874
+      time: 0.56606495
+      value: 1.0230402
+      inSlope: -0.33317482
+      outSlope: -0.33317482
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.4372723
-      outWeight: 0.11430368
+      inWeight: 0.14455673
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  RotationDuration: 1.3
+  RotationDuration: 1.5
   RotationCurve:
     serializedVersion: 2
     m_Curve:
@@ -69,8 +69,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.3612034
-      value: 1.3003144
+      time: 0.3362553
+      value: 1.0588193
       inSlope: 1.6119685
       outSlope: 1.6119685
       tangentMode: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ScaleDuration: 0.7
+  ScaleDuration: 0.25
   ScaleCurve:
     serializedVersion: 2
     m_Curve:

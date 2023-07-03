@@ -16,7 +16,7 @@ MonoBehaviour:
   - ExecutionStateHelper: 0
     ExecutionState: Default
     IsEnabled: 1
-    Sprite: {fileID: 21300000, guid: a6efb029057014d4eb6847a4ee02864e, type: 3}
+    Sprite: {fileID: 21300000, guid: e41413a8f7a2d4c829760ed08c2105dd, type: 3}
     Delay: 0
   - ExecutionStateHelper: 7
     ExecutionState: Click

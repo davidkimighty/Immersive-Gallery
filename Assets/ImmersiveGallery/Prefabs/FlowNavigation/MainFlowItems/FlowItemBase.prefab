@@ -73,10 +73,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _newPositionInterval: 5
-  _newRotationInterval: 3
-  _moveSpeed: 0.002
-  _rotationSpeed: 0.01
+  _newPositionInterval: 3
+  _newRotationInterval: 2
+  _moveSpeed: 0.05
+  _rotationSpeed: 0.02
 --- !u!114 &-3181002192506573729
 MonoBehaviour:
   m_ObjectHideFlags: 0

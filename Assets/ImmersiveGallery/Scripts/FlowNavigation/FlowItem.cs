@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Broccollie.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Gallery
 {
@@ -25,6 +24,8 @@ namespace Gallery
         [SerializeField] private float _moveSpeed = 0.001f;
         [SerializeField] private float _rotationSpeed = 0.01f;
 
+        [SerializeField] private float _followSpeed = 0.5f;
+
         private GameObject _rotateIndicators = null;
         private FlowItemPreset _injectedPreset = null;
         public FlowItemPreset InjectedPreset
@@ -32,9 +33,10 @@ namespace Gallery
             get => _injectedPreset;
         }
         private bool _showcaserEnabled = false;
+        private Vector3 _originScale = Vector3.one;
         private IEnumerator _hoverScaleCoroutine = null;
         private IEnumerator _randomFloatCoroutine = null;
-        private CancellationTokenSource _cts = new CancellationTokenSource();
+        private CancellationTokenSource _cts = new();
 
         private void Awake()
         {
@@ -46,7 +48,7 @@ namespace Gallery
         {
             if (_hoverScaleCoroutine != null)
                 StopCoroutine(_hoverScaleCoroutine);
-            _hoverScaleCoroutine = transform.LerpScale(Vector3.one, _hoveredDuration, _hoveredCurve);
+            _hoverScaleCoroutine = transform.LerpScale(_originScale, _hoveredDuration, _hoveredCurve);
             StartCoroutine(_hoverScaleCoroutine);
 
             _rotateIndicators.SetActive(false);
@@ -61,9 +63,10 @@ namespace Gallery
 
             if (_showcaserEnabled)
             {
+                _originScale = transform.localScale;
                 if (_hoverScaleCoroutine != null)
                     StopCoroutine(_hoverScaleCoroutine);
-                _hoverScaleCoroutine = transform.LerpScale(Vector3.one * _hoveredSize, _hoveredDuration, _hoveredCurve);
+                _hoverScaleCoroutine = transform.LerpScale(_originScale * _hoveredSize, _hoveredDuration, _hoveredCurve);
                 StartCoroutine(_hoverScaleCoroutine);
 
                 _rotateIndicators.SetActive(true);
@@ -95,6 +98,7 @@ namespace Gallery
         {
             if (_randomFloatCoroutine != null)
                 StopCoroutine(_randomFloatCoroutine);
+
             gameObject.SetActive(true);
             try
             {
@@ -105,6 +109,7 @@ namespace Gallery
                 {
                     transform.LerpPositionAsync(targetAnchor.position, preset.PositionDuration, _cts.Token, preset.PositionCurve),
                     transform.LerpRotationAsync(targetAnchor.rotation, preset.RotationDuration, _cts.Token, preset.RotationCurve),
+                    transform.LerpScaleAsync(targetAnchor.localScale, preset.ScaleDuration, _cts.Token, preset.ScaleCurve)
                 };
                 await Task.WhenAll(moveTask);
 
@@ -117,23 +122,28 @@ namespace Gallery
             catch (OperationCanceledException) { }
         }
 
-        public void SetReady(bool state, Transform targetAnchor)
+        public void SetReady(bool state, Transform targetAnchor = null)
         {
+            if (_randomFloatCoroutine != null)
+                StopCoroutine(_randomFloatCoroutine);
+
             gameObject.SetActive(state);
-            transform.position = targetAnchor.position;
+            if (targetAnchor != null)
+            {
+                transform.position = targetAnchor.position;
+                transform.localScale = targetAnchor.localScale;
+            }
 
             if (state)
             {
-                if (_randomFloatCoroutine != null)
-                    StopCoroutine(_randomFloatCoroutine);
                 _randomFloatCoroutine = FloatingRandomly();
                 StartCoroutine(_randomFloatCoroutine);
             }
         }
 
-        public void EnableShowcaser(bool state, Quaternion originRot)
+        public void EnableShowcaser(bool state, Transform origin)
         {
-            _showcaser.EnableShowcase(state, originRot);
+            _showcaser.EnableShowcase(state, origin);
             _showcaserEnabled = state;
         }
 
@@ -150,7 +160,7 @@ namespace Gallery
             {
                 if (posElapsedTime > _newPositionInterval)
                 {
-                    randomPosition = transform.position + UnityEngine.Random.insideUnitSphere * 0.3f;
+                    randomPosition = transform.position + UnityEngine.Random.insideUnitSphere * 0.5f;
                     posElapsedTime = 0;
                 }
 
@@ -159,8 +169,8 @@ namespace Gallery
                     randomRotation = UnityEngine.Random.rotationUniform;
                     rotElapsedTime = 0;
                 }
-                transform.position = Vector3.Slerp(transform.position, randomPosition, _moveSpeed * Time.deltaTime);
-                transform.rotation = Quaternion.Slerp(transform.rotation, randomRotation, _rotationSpeed * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, randomPosition, _moveSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, randomRotation, _rotationSpeed * Time.deltaTime);
                 posElapsedTime += Time.deltaTime;
                 rotElapsedTime += Time.deltaTime;
                 yield return null;

@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Broccollie.System;
-using ShaderMagic.Shaders;
 using UnityEngine;
 
 namespace Gallery
@@ -9,11 +8,12 @@ namespace Gallery
     {
         [Header("Event Channels")]
         [SerializeField] private SceneAddressableEventChannel _sceneEventChannel = null;
-        [SerializeField] private FadeEventChannel _fadeEventChannel = null;
-        [SerializeField] private float _fadeDuration = 1f;
 
         [Header("Scenes")]
         [SerializeField] private SceneAddressablePreset _titleScene = null;
+
+        [Header("Controllers")]
+        [SerializeField] private ScreenFader _screenFader = null;
 
         private async void Awake()
         {
@@ -23,7 +23,7 @@ namespace Gallery
         }
 
         #region Subscribers
-        private async Task FadeIn(SceneAddressablePreset preset) => await _fadeEventChannel.RequestFadeAsync(1f, _fadeDuration);
+        private async Task FadeIn(SceneAddressablePreset preset) => await _screenFader.FadeAsync(1);
 
         #endregion
     }

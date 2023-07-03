@@ -22,18 +22,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bc4dc0e99daf948b38651ff680b2f420
-    m_Address: EventChannel_Fade
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 53b6c99c561e24f02b25c52a1c4e8f0b
     m_Address: EventChannel_SceneAddressable
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4fde6abecbf4f48cbb62bf12d2ab3131
-    m_Address: EventChannel_Blur
+  - m_GUID: e0d20d6d0171b47cc9d06e90b3b55fc2
+    m_Address: EventChannel_Setting
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

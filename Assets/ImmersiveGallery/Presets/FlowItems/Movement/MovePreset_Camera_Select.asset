@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5342c420259a74fcd8fda45aeffbc4f7, type: 3}
   m_Name: MovePreset_Camera_Select
   m_EditorClassIdentifier: 
-  PositionDuration: 1.9
+  PositionDuration: 2
   PositionCurve:
     serializedVersion: 2
     m_Curve:
@@ -28,12 +28,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.259118
       value: 0.9836867
-      inSlope: 1.2319398
-      outSlope: 1.2319398
+      inSlope: 0.64443225
+      outSlope: 0.64443225
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.057332024
     - serializedVersion: 3
       time: 1
       value: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ScaleDuration: 0.7
+  ScaleDuration: 0.25
   ScaleCurve:
     serializedVersion: 2
     m_Curve:

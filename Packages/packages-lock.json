@@ -9,14 +9,7 @@
         "com.unity.inputsystem": "1.5.0",
         "com.unity.cinemachine": "2.9.5"
       },
-      "hash": "a3ffe1963adba870faeaa0d5246099030ca80120"
-    },
-    "com.hyunwookimbob.shadermagic": {
-      "version": "https://github.com/hyunwookimbob/ShaderMagic.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "6648b2e46ee7c725d709c0eb7717d70cdb1897b0"
+      "hash": "7e0bb976f16954f639d59eccbc126007c04515d3"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

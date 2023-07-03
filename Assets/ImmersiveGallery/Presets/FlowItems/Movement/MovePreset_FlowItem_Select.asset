@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5342c420259a74fcd8fda45aeffbc4f7, type: 3}
   m_Name: MovePreset_FlowItem_Select
   m_EditorClassIdentifier: 
-  PositionDuration: 2
+  PositionDuration: 2.3
   PositionCurve:
     serializedVersion: 2
     m_Curve:
@@ -33,6 +33,15 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.56606495
+      value: 1.0154378
+      inSlope: -0.33317482
+      outSlope: -0.33317482
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.14455673
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
@@ -80,7 +89,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ScaleDuration: 0.7
+  ScaleDuration: 0.25
   ScaleCurve:
     serializedVersion: 2
     m_Curve:

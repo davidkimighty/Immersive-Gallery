@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Broccollie.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,7 +16,7 @@ namespace Gallery
         [SerializeField] private float _rotationSpeed = 30f;
         [SerializeField] private float _rotationDamping = 0.3f;
         [SerializeField] private float _resetWaitTime = 3f;
-        [SerializeField] private float _resetRotationTime = 0.3f;
+        [SerializeField] private float _resetTime = 0.3f;
 
         private bool _showcaseEnabled = false;
         private bool _isDragging = false;
@@ -23,7 +25,7 @@ namespace Gallery
             get => _isDragging;
         }
         private bool _needsReset = false;
-        private Quaternion _originalRotation = Quaternion.identity;
+        private Transform _origin = null;
         private float _rotationVelocityX = 0f;
         private float _rotationVelocityY = 0f;
         private float _currentResetWaitTime = 0f;
@@ -58,10 +60,10 @@ namespace Gallery
         }
 
         #region Public Functions
-        public void EnableShowcase(bool state, Quaternion originalRot)
+        public void EnableShowcase(bool state, Transform origin)
         {
             _showcaseEnabled = state;
-            _originalRotation = originalRot;
+            _origin = origin;
         }
 
         public void ResetMovement()
@@ -79,7 +81,7 @@ namespace Gallery
 
             VelocityXMovement();
             VelocityYMovement();
-            BackToOriginalRotation();
+            BackToOrigin();
         }
 
         private void VelocityXMovement()
@@ -108,7 +110,7 @@ namespace Gallery
             }
         }
 
-        private async void BackToOriginalRotation()
+        private async void BackToOrigin()
         {
             if (CanReset())
             {
@@ -120,7 +122,13 @@ namespace Gallery
                     _cts.Cancel();
                     _cts = new CancellationTokenSource();
 
-                    await transform.LerpRotationAsync(_originalRotation, _resetRotationTime, _cts.Token);
+                    List<Task> originTasks = new List<Task>
+                    {
+                        transform.LerpRotationAsync(_origin.rotation, _resetTime, _cts.Token),
+                        transform.LerpPositionAsync(_origin.position, _resetTime, _cts.Token)
+                    };
+                    await Task.WhenAll(originTasks);
+
                     _currentResetWaitTime = _rotationVelocityX = _rotationVelocityY = 0f;
                     _needsReset = false;
                 }
@@ -133,7 +141,7 @@ namespace Gallery
             {
                 return !_isDragging && Mathf.Approximately(_rotationVelocityX, 0)
                     && Mathf.Approximately(_rotationVelocityY, 0)
-                    && transform.localRotation != _originalRotation
+                    && transform.localRotation != _origin.rotation
                     && _needsReset;
             }
         }
