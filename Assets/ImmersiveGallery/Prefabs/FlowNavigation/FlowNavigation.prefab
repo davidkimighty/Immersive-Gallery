@@ -1678,6 +1678,7 @@ MonoBehaviour:
   _canvas: {fileID: 5216580475433867589}
   _itemPresets:
   - {fileID: 11400000, guid: 3af03dd977255404ead95a103d1dff87, type: 2}
+  - {fileID: 11400000, guid: c1fee635f5cd04d21826d2f6af4bb23b, type: 2}
   - {fileID: 11400000, guid: 6373c125bcb03486a92d6bf47951d21b, type: 2}
   - {fileID: 11400000, guid: f67b25ceed6554656a9205de77445d8e, type: 2}
   - {fileID: 11400000, guid: 313dd9ebcd5d3417b83ea8e9ff7e9b27, type: 2}
