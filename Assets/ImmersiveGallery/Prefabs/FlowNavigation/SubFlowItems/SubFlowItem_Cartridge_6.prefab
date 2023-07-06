@@ -83,6 +83,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameboyCartrige
       objectReference: {fileID: 0}
+    - target: {fileID: 5036304667429487501, guid: 98ae92304b7c147459120241625c47ce,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98fde5bb90e7f4387b0cb4ac7bfe4d29, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

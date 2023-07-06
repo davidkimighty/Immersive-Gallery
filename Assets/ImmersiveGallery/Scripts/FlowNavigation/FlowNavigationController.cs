@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Broccollie.Audio;
 using Broccollie.Core;
 using Broccollie.UI;
 using TMPro;
@@ -19,6 +20,7 @@ namespace Gallery
         private const string s_select = "select";
         private const string s_play = "play";
 
+        [SerializeField] private AudioEventChannel _audioEventChannel = null;
         [SerializeField] private SettingEventChannel _settingEventChannel = null;
 
         [SerializeField] private Canvas _canvas = null;
@@ -36,6 +38,11 @@ namespace Gallery
         [SerializeField] private FlowMovementPreset _itemMovePreset = null;
         [SerializeField] private FlowMovementPreset _itemSelectionMovePreset = null;
         [SerializeField] private FlowMovementPreset _cameraSelectionMovePreset = null;
+
+        [SerializeField] private AudioPreset _itemMoveAudio = null;
+        [SerializeField] private AudioPreset _itemSelectAudio = null;
+        [SerializeField] private AudioPreset _itemDeselectAudio = null;
+        [SerializeField] private AudioPreset _itemMoveToIndexAudio = null;
 
         [SerializeField] private TextMeshProUGUI _itemNameText = null;
         [SerializeField] private TextMeshProUGUI _itemDescriptionText = null;
@@ -61,12 +68,12 @@ namespace Gallery
 
         private void Awake()
         {
-            _upButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(true, true);
-            _downButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(false, true);
+            _upButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(true);
+            _downButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(false);
             _actionButton.OnClick += (sender, args) => SelectItem();
             _backButton.OnClick += (sender, args) => BackSelectionAsync();
-            _leftButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(true, true);
-            _rightButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(false, true);
+            _leftButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(true);
+            _rightButton.OnClick += (sender, args) => MovePositionsByDirectionAsync(false);
 
             _backButton.SetActive(false);
             _rotateIndicators.SetActive(false);
@@ -87,7 +94,7 @@ namespace Gallery
         }
 
         #region Subscribers
-        private async void MovePositionsByDirectionAsync(bool up, bool updateUI)
+        private async void MovePositionsByDirectionAsync(bool up, bool updateUI = true, bool playAudio = true)
         {
             if (!_createdItems.TryGetValue(_selectedItemsKey, out List<FlowItem> flowItems) ||
                 !_activeIndexes.TryGetValue(_selectedItemsKey, out List<int> indexes)) return;
@@ -140,8 +147,12 @@ namespace Gallery
             if (updateUI)
             {
                 _itemNameText.text = flowItems[indexes[centerIndex]].InjectedPreset.ItemName;
+                _itemDescriptionText.text = flowItems[indexes[centerIndex]].InjectedPreset.ItemDescription;
                 ToggleArrowButtons(indexes[centerIndex], flowItems.Count - 1);
             }
+
+            if (playAudio)
+                _audioEventChannel.RaisePlayAudioEvent(_itemMoveAudio);
             await UpdateActiveItemsPositionAsync(flowItems, indexes, anchors, _itemMovePreset);
         }
 
@@ -156,6 +167,7 @@ namespace Gallery
             _backButton.SetActive(true);
             _actionButtonText.text = s_play;
 
+            _audioEventChannel.RaisePlayAudioEvent(_itemSelectAudio);
             _selectedItemsKey = selectedItem.InjectedPreset.ItemName;
             if (_createdItems.TryGetValue(_selectedItemsKey, out List<FlowItem> subItems))
             {
@@ -170,8 +182,6 @@ namespace Gallery
             {
                 MoveItemsToSelectionPointsAsync(selectedItem, _selectedItemCenterAnchor);
 
-                _itemDescriptionText.text = selectedItem.InjectedPreset.ItemDescription;
-                _itemDescriptionText.enabled = true;
                 _upButton.SetActive(false);
                 _downButton.SetActive(false);
                 _leftButton.SetActive(false);
@@ -198,8 +208,8 @@ namespace Gallery
             StartCoroutine(_disableItemsCoroutine);
 
             _selectedItemsKey = s_mainItemsKey;
+            _backButton.ChangeState(UIStates.Default.ToString(), true, false, false);
             _backButton.SetActive(false);
-            _itemDescriptionText.enabled = false;
             _actionButtonText.text = s_select;
 
             int centerIndex = _selectedItemsKey == s_mainItemsKey ? _mainItemCenterIndex : _subItemCenterIndex;
@@ -207,6 +217,7 @@ namespace Gallery
             ToggleArrowButtons(centerItemIndex, _createdItems[_selectedItemsKey].Count - 1);
             _itemNameText.text = _createdItems[_selectedItemsKey][centerItemIndex].InjectedPreset.ItemName;
 
+            _audioEventChannel.RaisePlayAudioEvent(_itemDeselectAudio);
             _createdItems[_selectedItemsKey][centerItemIndex].EnableShowcaser(false, null);
             List<Task> movePositionsTask = new()
             {
@@ -347,16 +358,18 @@ namespace Gallery
             {
                 _itemNameText.text = _createdItems[_selectedItemsKey][index].InjectedPreset.ItemName;
                 ToggleArrowButtons(index, _createdItems[_selectedItemsKey].Count - 1);
+                _audioEventChannel.RaisePlayAudioEvent(_itemMoveToIndexAudio);
+
                 bool up = TargetDirIsUp(index, centerIndex);
                 while (indexes[centerIndex] != index)
                 {
-                    MovePositionsByDirectionAsync(up, false);
+                    MovePositionsByDirectionAsync(up, false, false);
                     yield return new WaitForSeconds(_moveToIndexDelay);
                 }
             }
             else
             {
-                _itemNameText.text = _createdItems[_selectedItemsKey][centerIndex].InjectedPreset.ItemName;
+                _itemNameText.text = _createdItems[_selectedItemsKey][index].InjectedPreset.ItemName;
                 ToggleArrowButtons(indexes[centerIndex], _createdItems[_selectedItemsKey].Count - 1);
                 List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
                 yield return UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], indexes, anchors, _itemMovePreset);

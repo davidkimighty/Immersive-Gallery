@@ -1594,7 +1594,7 @@ MonoBehaviour:
   _ambientSlider: {fileID: 6059439409858624539}
   _titleText: {fileID: 4739623064829548152}
   _screenFader: {fileID: 481458605231955219}
-  _fadeStrength: 0.97
+  _fadeStrength: 0.99
   _fadeDuration: 0.5
   _fadeCurve:
     serializedVersion: 2

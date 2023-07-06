@@ -46,6 +46,14 @@ namespace Gallery
             _settingButton.SetActive(false);
             _titleText.enabled = false;
             _screenFader.enabled = false;
+
+            ChangeVolume(s_musicKey, 0.3f);
+            ChangeVolume(s_sfxKey, 0.5f);
+            ChangeVolume(s_ambientKey, 0.3f);
+
+            _musicSlider.value = 0.3f;
+            _sfxSlider.value = 0.5f;
+            _ambientSlider.value = 0.3f;
         }
 
         private void OnEnable()
@@ -59,7 +67,7 @@ namespace Gallery
         }
 
         #region Subscribers
-        private void ChangeVolume(string name, float volume) => _mixer.SetFloat(name, volume);
+        private void ChangeVolume(string name, float volume) => _mixer.SetFloat(name, Mathf.Log10(volume) * 20);
 
         private void EnableSettingButton(SceneAddressablePreset preset)
         {

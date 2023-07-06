@@ -27,11 +27,15 @@
     <type fullname="Broccollie.UI.AudioUIFeature" preserve="all" />
     <type fullname="Broccollie.UI.AudioUIPreset" preserve="all" />
     <type fullname="Broccollie.UI.ButtonUI" preserve="all" />
+    <type fullname="Broccollie.UI.ColorUIFeature" preserve="all" />
+    <type fullname="Broccollie.UI.ColorUIPreset" preserve="all" />
     <type fullname="Broccollie.UI.PanelUI" preserve="all" />
     <type fullname="Broccollie.UI.SpriteUIFeature" preserve="all" />
     <type fullname="Broccollie.UI.SpriteUIPreset" preserve="all" />
     <type fullname="Broccollie.UI.AudioUIFeature/Element" preserve="nothing" serialized="true" />
     <type fullname="Broccollie.UI.AudioUIPreset/AudioSetting" preserve="nothing" serialized="true" />
+    <type fullname="Broccollie.UI.ColorUIFeature/Element" preserve="nothing" serialized="true" />
+    <type fullname="Broccollie.UI.ColorUIPreset/ColorSetting" preserve="nothing" serialized="true" />
     <type fullname="Broccollie.UI.SpriteUIFeature/Element" preserve="nothing" serialized="true" />
     <type fullname="Broccollie.UI.SpriteUIPreset/SpriteSetting" preserve="nothing" serialized="true" />
   </assembly>
@@ -96,6 +100,7 @@
   <assembly fullname="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.Audio.AudioMixer" preserve="all" />
     <type fullname="UnityEngine.Audio.AudioMixerGroup" preserve="all" />
+    <type fullname="UnityEngine.AudioClip" preserve="all" />
     <type fullname="UnityEngine.AudioListener" preserve="all" />
     <type fullname="UnityEngine.AudioSource" preserve="all" />
   </assembly>

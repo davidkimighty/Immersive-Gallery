@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemPreset_BallFolder
   m_EditorClassIdentifier: 
   Id: 1
-  ItemName: Balls
+  ItemName: Folder
   ItemRef:
     m_AssetGUID: 8626926e4a71240b799769c836eeda8f
     m_SubObjectName: 
@@ -24,4 +24,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9063eea78b4ab4ddabc87c67a0739e87, type: 2}
   - {fileID: 11400000, guid: e085cbf5626fc4df8a32ca04ef2487f1, type: 2}
   - {fileID: 11400000, guid: 900eff73da74f478aa31394899e7d077, type: 2}
-  ItemDescription: This is a Cube. Bla bla bla.
+  ItemDescription: There are 4 items in this folder.

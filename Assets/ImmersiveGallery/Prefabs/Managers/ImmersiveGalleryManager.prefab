@@ -45,5 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneEventChannel: {fileID: 11400000, guid: 53b6c99c561e24f02b25c52a1c4e8f0b, type: 2}
-  _fadeEventChannel: {fileID: 11400000, guid: bc4dc0e99daf948b38651ff680b2f420, type: 2}
-  _fadeDuration: 1
+  _audioEventChannel: {fileID: 11400000, guid: 64b68996a001d401084a0ab3fe0397a4, type: 2}
+  _flowNavController: {fileID: 0}
+  _ambientPreset: {fileID: 11400000, guid: f5ca3a594de674c0bae859653af4acdf, type: 2}
