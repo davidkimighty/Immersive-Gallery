@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0ebe4cc76d3141b293622fc66783137, type: 3}
-  m_Name: ItemPreset_Cup
+  m_Name: ItemPreset_Cartridge_DinoGame 4
   m_EditorClassIdentifier: 
   Id: 1
-  ItemName: Cup of...
+  ItemName: Game Temp 4
   ItemRef:
-    m_AssetGUID: 38ef5d84fa1de48099db728ee846ec36
+    m_AssetGUID: 1478524c7d60846fbb1fbda26571b3e2
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   SubFlowItems: []
-  ItemDescription: This is a cup of... cuteness!
+  ItemDescription: This is a test item.

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace Gallery
         [SerializeField] private List<Transform> _subItemAnchors = null;
         [SerializeField] private Transform _itemHolder = null;
         [SerializeField] private Transform _selectedItemAnchor = null;
+        [SerializeField] private Transform _selectedItemCenterAnchor = null;
         [SerializeField] private Transform _selectedCameraAnchor = null;
         [SerializeField] private int _mainItemCenterIndex = 2; // first index is 0
         [SerializeField] private int _subItemCenterIndex = 3;
@@ -151,13 +153,14 @@ namespace Gallery
             FlowItem selectedItem = _createdItems[s_mainItemsKey][selectedIndex];
             selectedItem.EnableShowcaser(true, _selectedItemAnchor);
 
-            MoveItemsToSelectionPointsAsync(selectedItem);
             _backButton.SetActive(true);
             _actionButtonText.text = s_play;
 
             _selectedItemsKey = selectedItem.InjectedPreset.ItemName;
             if (_createdItems.TryGetValue(_selectedItemsKey, out List<FlowItem> subItems))
             {
+                MoveItemsToSelectionPointsAsync(selectedItem, _selectedItemAnchor);
+
                 if (_moveToIndexCoroutine != null)
                     StopCoroutine(_moveToIndexCoroutine);
                 _moveToIndexCoroutine = MoveToIndex(0);
@@ -165,6 +168,8 @@ namespace Gallery
             }
             else
             {
+                MoveItemsToSelectionPointsAsync(selectedItem, _selectedItemCenterAnchor);
+
                 _itemDescriptionText.text = selectedItem.InjectedPreset.ItemDescription;
                 _itemDescriptionText.enabled = true;
                 _upButton.SetActive(false);
@@ -173,11 +178,11 @@ namespace Gallery
                 _rightButton.SetActive(false);
             }
 
-            async void MoveItemsToSelectionPointsAsync(FlowItem selectedItem)
+            async void MoveItemsToSelectionPointsAsync(FlowItem selectedItem, Transform anchor)
             {
                 List<Task> movePositionsTask = new()
                 {
-                    selectedItem.MoveToAnchorAsync(_selectedItemAnchor, _itemSelectionMovePreset),
+                    selectedItem.MoveToAnchorAsync(anchor, _itemSelectionMovePreset),
                     Camera.main.transform.LerpPositionAsync(_selectedCameraAnchor.position, _cameraSelectionMovePreset.PositionDuration, _moveCts.Token, _cameraSelectionMovePreset.PositionCurve)
                 };
                 await Task.WhenAll(movePositionsTask);
@@ -255,19 +260,26 @@ namespace Gallery
                 {
                     for (int i = 0; i < presets.Count; i++)
                     {
-                        AsyncOperationHandle<GameObject> mainloadHandle = presets[i].ItemRef.LoadAssetAsync<GameObject>();
-                        await mainloadHandle.Task;
-                        if (mainloadHandle.Status != AsyncOperationStatus.Succeeded) continue;
-
-                        GameObject mainGo = Instantiate(mainloadHandle.Result, _itemHolder);
-                        mainGo.transform.localPosition = Vector3.zero;
-                        mainGo.transform.LookAt(Vector3.forward, Vector3.up);
-                        mainGo.SetActive(false);
-
-                        if (mainGo.TryGetComponent(out FlowItem item))
+                        try
                         {
-                            item.Initialize(presets[i], _rotateIndicators);
-                            items.Add(item);
+                            AsyncOperationHandle<GameObject> mainloadHandle = presets[i].ItemRef.LoadAssetAsync<GameObject>();
+                            await mainloadHandle.Task;
+                            if (mainloadHandle.Status != AsyncOperationStatus.Succeeded) continue;
+
+                            GameObject mainGo = Instantiate(mainloadHandle.Result, _itemHolder);
+                            mainGo.transform.localPosition = Vector3.zero;
+                            mainGo.transform.LookAt(Vector3.forward, Vector3.up);
+                            mainGo.SetActive(false);
+
+                            if (mainGo.TryGetComponent(out FlowItem item))
+                            {
+                                item.Initialize(presets[i], _rotateIndicators);
+                                items.Add(item);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            continue;
                         }
                     }
                 }

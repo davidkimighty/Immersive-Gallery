@@ -19,5 +19,12 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  SubFlowItems: []
-  ItemDescription: This is a Gameboy. You can play mini games with this!
+  SubFlowItems:
+  - {fileID: 11400000, guid: 9bbcc4d434d784b87afc145f8049a1a9, type: 2}
+  - {fileID: 11400000, guid: bfac3b255294e4e64a06fa9e76db6521, type: 2}
+  - {fileID: 11400000, guid: 5c2b4da148acf479fafbf73058588112, type: 2}
+  - {fileID: 11400000, guid: 079cce3864ea04333b2413520f9612b7, type: 2}
+  - {fileID: 11400000, guid: 790c0b39594944935b22d8cfffe68a00, type: 2}
+  - {fileID: 11400000, guid: 68e19380489764abfa18cf99fe55b91a, type: 2}
+  - {fileID: 11400000, guid: 19d800befeb964c2fb6959bc157c7028, type: 2}
+  ItemDescription: You can play mini games with this.
