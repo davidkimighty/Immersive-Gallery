@@ -25,7 +25,7 @@ namespace Gallery
 
         [SerializeField] private Canvas _canvas = null;
         [SerializeField] private List<FlowItemPreset> _itemPresets = null;
-        [SerializeField] private List<Transform> _itemAnchors = null;
+        [SerializeField] private List<Transform> _mainItemAnchors = null;
         [SerializeField] private List<Transform> _subItemAnchors = null;
         [SerializeField] private Transform _itemHolder = null;
         [SerializeField] private Transform _selectedItemAnchor = null;
@@ -106,7 +106,7 @@ namespace Gallery
                 return;
             }
 
-            List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
+            List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _mainItemAnchors : _subItemAnchors;
             if (up)
             {
                 if (_topStacks[_selectedItemsKey].TryPop(out int toppop))
@@ -149,6 +149,8 @@ namespace Gallery
                 _itemNameText.text = flowItems[indexes[centerIndex]].InjectedPreset.ItemName;
                 _itemDescriptionText.text = flowItems[indexes[centerIndex]].InjectedPreset.ItemDescription;
                 ToggleArrowButtons(indexes[centerIndex], flowItems.Count - 1);
+                if (_selectedItemsKey == s_mainItemsKey)
+                    EnableCenterShowcaser(flowItems, indexes, _mainItemAnchors, _mainItemCenterIndex);
             }
 
             if (playAudio)
@@ -217,11 +219,13 @@ namespace Gallery
             ToggleArrowButtons(centerItemIndex, _createdItems[_selectedItemsKey].Count - 1);
             _itemNameText.text = _createdItems[_selectedItemsKey][centerItemIndex].InjectedPreset.ItemName;
 
+            EnableCenterShowcaser(_createdItems[s_mainItemsKey], _activeIndexes[s_mainItemsKey], _mainItemAnchors, _mainItemCenterIndex);
+
             _audioEventChannel.RaisePlayAudioEvent(_itemDeselectAudio);
             _createdItems[_selectedItemsKey][centerItemIndex].EnableShowcaser(false, null);
             List<Task> movePositionsTask = new()
             {
-                UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], _activeIndexes[_selectedItemsKey], _itemAnchors, _itemSelectionMovePreset),
+                UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], _activeIndexes[_selectedItemsKey], _mainItemAnchors, _itemSelectionMovePreset),
                 Camera.main.transform.LerpPositionAsync(Vector3.zero, _cameraSelectionMovePreset.PositionDuration, _moveCts.Token, _cameraSelectionMovePreset.PositionCurve)
             };
             await Task.WhenAll(movePositionsTask);
@@ -298,12 +302,12 @@ namespace Gallery
 
             void InitializeIndexes()
             {
-                _mainItemCenterIndex = _mainItemCenterIndex < 0 || _mainItemCenterIndex > _itemAnchors.Count - 1 ? _itemAnchors.Count / 2 : _mainItemCenterIndex;
+                _mainItemCenterIndex = _mainItemCenterIndex < 0 || _mainItemCenterIndex > _mainItemAnchors.Count - 1 ? _mainItemAnchors.Count / 2 : _mainItemCenterIndex;
                 _subItemCenterIndex = _subItemCenterIndex < 0 || _subItemCenterIndex > _subItemAnchors.Count - 1 ? _subItemAnchors.Count / 2 : _subItemCenterIndex;
 
                 _activeIndexes = new Dictionary<string, List<int>>();
                 List<int> mainItemIndexes = new();
-                for (int i = 0; i < _itemAnchors.Count; i++)
+                for (int i = 0; i < _mainItemAnchors.Count; i++)
                     mainItemIndexes.Add(s_emptyIndex);
                 _activeIndexes.Add(s_mainItemsKey, mainItemIndexes);
 
@@ -371,9 +375,12 @@ namespace Gallery
             {
                 _itemNameText.text = _createdItems[_selectedItemsKey][index].InjectedPreset.ItemName;
                 ToggleArrowButtons(indexes[centerIndex], _createdItems[_selectedItemsKey].Count - 1);
-                List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
+                List<Transform> anchors = _selectedItemsKey == s_mainItemsKey ? _mainItemAnchors : _subItemAnchors;
                 yield return UpdateActiveItemsPositionAsync(_createdItems[_selectedItemsKey], indexes, anchors, _itemMovePreset);
             }
+
+            if (_selectedItemsKey == s_mainItemsKey)
+                EnableCenterShowcaser(_createdItems[s_mainItemsKey], _activeIndexes[s_mainItemsKey], _mainItemAnchors, _mainItemCenterIndex);
         }
 
         #endregion
@@ -396,7 +403,7 @@ namespace Gallery
             yield return new WaitForSeconds(delay);
             if (key == _selectedItemsKey) yield break;
 
-            List<Transform> anchors = key == s_mainItemsKey ? _itemAnchors : _subItemAnchors;
+            List<Transform> anchors = key == s_mainItemsKey ? _mainItemAnchors : _subItemAnchors;
             foreach (FlowItem item in items)
                 item.SetReady(false, anchors[anchors.Count - 1]);
         }
@@ -447,6 +454,16 @@ namespace Gallery
                     _upButton.SetActive(false);
                     _downButton.SetActive(false);
                 }
+            }
+        }
+
+        private void EnableCenterShowcaser(List<FlowItem> flowItems, List<int> indexes, List<Transform> anchors, int centerIndex)
+        {
+            for (int i = 0; i < indexes.Count; i++)
+            {
+                if (indexes[i] == s_emptyIndex) continue;
+                bool showcaseState = indexes[i] == indexes[centerIndex];
+                flowItems[indexes[i]].EnableShowcaser(showcaseState, anchors[centerIndex]);
             }
         }
 

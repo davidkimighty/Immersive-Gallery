@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AudioPreset_ItemMove
   m_EditorClassIdentifier: 
   AudioClips:
-  - {fileID: 8300000, guid: 409ce8de786124defa97d56597f3563b, type: 3}
+  - {fileID: 8300000, guid: 89ff217ad0ba945ccb014034b0975650, type: 3}
   MixerGroup: {fileID: -9002409420600538122, guid: 82bc663cb80ce4c5b90a6432d996e499,
     type: 2}
-  Volume: 1
+  Volume: 0.5
   Delay: 0
   Loop: 0
-  _playIndex: 2
+  _playIndex: 0
   _playOrder: 0

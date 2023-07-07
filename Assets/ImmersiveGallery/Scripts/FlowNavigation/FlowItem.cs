@@ -99,7 +99,9 @@ namespace Gallery
                 StopCoroutine(_randomFloatCoroutine);
 
             _originScale = targetAnchor.localScale;
+            _showcaser.ResetMovement();
             gameObject.SetActive(true);
+
             try
             {
                 _cts.Cancel();
@@ -127,7 +129,9 @@ namespace Gallery
             if (_randomFloatCoroutine != null)
                 StopCoroutine(_randomFloatCoroutine);
 
+            _showcaser.ResetMovement();
             gameObject.SetActive(state);
+
             if (targetAnchor != null)
             {
                 transform.position = targetAnchor.position;
@@ -151,30 +155,24 @@ namespace Gallery
 
         private IEnumerator FloatingRandomly()
         {
-            float posElapsedTime = Mathf.Infinity;
-            float rotElapsedTime = Mathf.Infinity;
-            Vector3 randomPosition = Vector3.zero;
-            Quaternion randomRotation = Quaternion.identity;
+            float rotElapsedTime = 0;
+            Quaternion randomRotation = GetRandomRoation();
 
             while (true)
             {
-                if (posElapsedTime > _newPositionInterval)
-                {
-                    randomPosition = transform.position + UnityEngine.Random.insideUnitSphere * 0.5f;
-                    posElapsedTime = 0;
-                }
-
                 if (rotElapsedTime > _newRotationInterval)
                 {
-                    randomRotation = UnityEngine.Random.rotationUniform;
+                    randomRotation = GetRandomRoation();
                     rotElapsedTime = 0;
                 }
-                transform.position = Vector3.Lerp(transform.position, randomPosition, _moveSpeed * Time.deltaTime);
+
                 transform.rotation = Quaternion.Lerp(transform.rotation, randomRotation, _rotationSpeed * Time.deltaTime);
-                posElapsedTime += Time.deltaTime;
                 rotElapsedTime += Time.deltaTime;
                 yield return null;
             }
+
+            //Vector3 GetRandomPosition() => transform.position + UnityEngine.Random.insideUnitSphere * 0.1f;
+            Quaternion GetRandomRoation() => UnityEngine.Random.rotationUniform;
         }
     }
 }

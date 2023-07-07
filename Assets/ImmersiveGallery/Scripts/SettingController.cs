@@ -48,11 +48,11 @@ namespace Gallery
             _screenFader.enabled = false;
 
             ChangeVolume(s_musicKey, 0.3f);
-            ChangeVolume(s_sfxKey, 0.5f);
+            ChangeVolume(s_sfxKey, 0.3f);
             ChangeVolume(s_ambientKey, 0.3f);
 
             _musicSlider.value = 0.3f;
-            _sfxSlider.value = 0.5f;
+            _sfxSlider.value = 0.3f;
             _ambientSlider.value = 0.3f;
         }
 
@@ -79,20 +79,26 @@ namespace Gallery
 
         private void OpenSettingsPanel(BaseUI sender, EventArgs args)
         {
+            _settingButton.SetRaycastIgnore(true);
             _settingPanel.ChangeState(UIStates.Show.ToString());
             _titleText.enabled = true;
             _screenFader.enabled = true;
 
-            FadeAsync(_fadeStrength);
+            FadeAsync(_fadeStrength, () => { _settingButton.SetRaycastIgnore(false); });
             _settingEventChannel.RaiseSettingOpen();
         }
 
         private void HideSettingsPanel(BaseUI sender, EventArgs args)
         {
+            _settingButton.SetRaycastIgnore(true);
             _settingPanel.ChangeState(UIStates.Hide.ToString());
             _titleText.enabled = false;
 
-            FadeAsync(0, () => _screenFader.enabled = false);
+            FadeAsync(0, () =>
+            {
+                _screenFader.enabled = false;
+                _settingButton.SetRaycastIgnore(false);
+            });
             _settingEventChannel.RaiseSettingClose();
         }
 
