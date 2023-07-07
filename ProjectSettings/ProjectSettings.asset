@@ -16,7 +16,7 @@ PlayerSettings:
   productName: Immersive Gallery
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.09019608, g: 0.09411765, b: 0.09019608, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
