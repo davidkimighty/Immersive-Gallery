@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ImmersiveGallery/Gameboy/Scenes/Gameboy.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/ImmersiveGallery/Scenes/Production/Initializer.unity
+    guid: c977112f5ddbd4ba0bbd49beb828e7f8
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 0818b131adbf94e1ca92ff0d02566416,
       type: 2}

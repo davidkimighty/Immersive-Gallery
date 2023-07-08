@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: 3467ecd32956b471cbbfdb163d180be3
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Sofia Sans Condensed
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 72541864c59d2402080ea22ac5202521, type: 3}
+  - {fileID: 12800000, guid: b2e3e5094047d4769a5c96c874420be3, type: 3}
+  - {fileID: 12800000, guid: 81552d8542b004205b677f5ca5ab5add, type: 3}
+  - {fileID: 12800000, guid: 01f4b90794d46492f85c338f114f6485, type: 3}
+  - {fileID: 12800000, guid: 414a80a4b2b4a45f790ae169a2072f2f, type: 3}
+  - {fileID: 12800000, guid: 7277621ed94e44a508fa722aba60a289, type: 3}
+  - {fileID: 12800000, guid: e26c41bd4074144e8adb4592d2a21cd5, type: 3}
+  - {fileID: 12800000, guid: a0f2404e6b80141c896cebce5ba0f623, type: 3}
+  - {fileID: 12800000, guid: 61225bc58aa894d28a19bae217631d8f, type: 3}
+  - {fileID: 12800000, guid: 53bb0feec922545c89d20907c3c5601e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
