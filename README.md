@@ -15,6 +15,8 @@
   </p>
 </div>
 
+<img src="https://github.com/hyunwookimbob/Immersive-Gallery/assets/32338791/8de54172-e8e2-472c-a167-e7e090fce11e">
+
 <br />
 
 # About
